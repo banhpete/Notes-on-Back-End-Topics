@@ -19,8 +19,41 @@ See https://www.hostinger.com/tutorials/what-is-apache or https://kinsta.com/kno
 ### What is Node.js and why do we use it?
 Node.js is a JavaScript Runtime Environment based off the same JavaScript Engine that Google Chrome uses (V8), that allows us to run JavaScript outside of the browser and instead run it directly on a computer or server OS. Ultimately, the benefit of this is that we can use Node.js to then create a web server on a computer or server, and then allow it to handle HTTP requests. So, when there is a HTTP request for a certain file, developers will use Node.js to grab the right file and serve it to a client. Additionally, Node.js can also be used to modify the file (HTML) before serving it, essentially it serves the same role as PHP and Apache in a LAMP.XAMP,MAMP stack where PHP dynamically modifies a webpage and Apache handles the HTTP requests. 
 
+### Node Modules 
 Node.js also has the the Node Pack Manager (NPM) which allows us to download what are considered node modules which are used for many different purpose of the web development process, from developing the material for webpages to actually hosting the web server.
+
+All node modules are just a single or a series of JavaScript files. To use these modules, we need to "require" them into a variable. To require them in we need to use the path of file or, if we installed it from npm we just need the name. **It's important to note that any variables initialized in these modules are only local to that module, they do not pollute the global scope**
+
+It's important to note that when we "require" a module in, it's not like we are just calling that file and running it. This [link](https://www.freecodecamp.org/news/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8/) here does a great job of explaining it but essentially, when we use "require" we wrap the module in a function, making the variables local to that module, since all variables are function scoped. 
+
+For us to use any of the functions or data from this module, the JavaSript file must have a module.exports object that contains all the functions/data. When we wrap the module in a function, the function returns this module.export object. **It technically doesn't have to be an object, it can just be one function, or an array, or string, etc. but an object allows us to export more**
 
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
 ExpressJS is a node module, which serves a web framework whiich helps us use Node.Js to set up a web server and program it to handle HTTP request. This can be installed from NPM.
+
+### How do we use ExpressJS?
+First we need to have ExpressJS installed through NPM, and then to be able to use express in the CLI, we need to have express-genetaor installed globally. ** If we wanted to only have it installed locally, we can use the key word 'npx' before 'express' to use it in the CLI.
+
+Then we can create an Express App Skeleton by using the command "express <name of app>. This will create a folder with the following structure:
+ ```
+ ├── app.js
+	├── bin
+	│   └── www
+	├── package.json
+	├── public
+	│   ├── images
+	│   ├── javascripts
+	│   └── stylesheets
+	│       └── style.css
+	├── routes
+	│   ├── index.js
+	│   └── users.js
+	└── views
+	    ├── error.js
+	    └── index.js
+ ```
+ 
+Now, express is non-opinionated, meaning, there isn't a right way to have things structured to use express. However for the interest of learning, we will follow some best practices set out by some people but this is by no mean a definite "MUST DO" - the structure above is just what express recommends. 
+
+
