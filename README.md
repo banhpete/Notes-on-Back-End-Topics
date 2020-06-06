@@ -1,8 +1,29 @@
 # Notes on Back-End Technologies
 My notes on back-end technologies. The following topics are covered:
+ - [Notes on HTTP Request](#http-request)
  - [Apache](#apache)
  - [Node.JS](#node.js)
  - [ExpressJS](#expressjs)
+
+## HTTP Request
+To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
+
+- The browser will send what is called the HTTP Request to the webserver of the URL
+  - In this request there will be Request Method: GET, POST, DELETE, etc
+  - Thwere will also be the request target which is usually a URL
+  - Potentially Cookies
+  - Parameters 
+- The webserver handles the HTTP Request
+  - How the webserver handles the request depends on the info in the request mentioned above.
+  - It's a back-end developer's job to develop the server side code to handle how a web server handles the request.
+- Once the HTTP Request is proceessd by a server side, the webserver will send back a HTTP Response
+  - HTTP Response will always contain a status code indicating to the client how the request/resposne went. It always a three-digit number that falls within the following categories:
+    - 1xx Informational
+    - 2xx Success
+    - 3xx Redriection
+    - 4xx Client Error
+    - 5xx Server Error
+  - The HTTP response may also have a file to server in the browser, or CSS to style HTML, or JavaScript to run in the HTML.
 
 ## Apache
 Apache is a software that serves as a web server to deliver or serve websites on the internet. Now remember, it is a web server, not a physical server, however it does runs on the physical server to act as the middle man between a client (browser) and a server. That is, a client will request a file from the server, the request will first go to the apache server to process and it will pull what it needs from the server to and send it back to the client.
