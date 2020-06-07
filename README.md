@@ -1,9 +1,10 @@
 # Notes on Back-End Technologies
-My notes on back-end technologies. The following topics are covered:
+My notes on back-end technologies. This is by no mean a comprehsive coverage of all the back-end technologies. The following topics are covered:
  - [Notes on HTTP Request](#http-request)
  - [Apache](#apache)
- - [Node.JS](#node.js)
+ - [Node.JS](#nodejs)
  - [ExpressJS](#expressjs)
+ - [Mongoose](#mongoose)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -36,7 +37,7 @@ Nginx is another web server simiiar to Apache, however it was made with more hea
 
 See https://www.hostinger.com/tutorials/what-is-apache or https://kinsta.com/knowledgebase/what-is-apache/ or https://www.quora.com/How-does-PHP-work-with-Apachefor more details 
 
-## Node.js
+## NodeJs
 ### What is Node.js and why do we use it?
 Node.js is a JavaScript Runtime Environment based off the same JavaScript Engine that Google Chrome uses (V8), that allows us to run JavaScript outside of the browser and instead run it directly on a computer or server OS. Ultimately, the benefit of this is that we can use Node.js to then create a web server on a computer or server, and then allow it to handle HTTP requests. So, when there is a HTTP request for a certain file, developers will use Node.js to grab the right file and serve it to a client. Additionally, Node.js can also be used to modify the file (HTML) before serving it, essentially it serves the same role as PHP and Apache in a LAMP.XAMP,MAMP stack where PHP dynamically modifies a webpage and Apache handles the HTTP requests. 
 
@@ -47,7 +48,13 @@ All node modules are just a single or a series of JavaScript files. To use these
 
 It's important to note that when we "require" a module in, it's not like we are just calling that file and running it. This [link](https://www.freecodecamp.org/news/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8/) here does a great job of explaining it but essentially, when we use "require" we wrap the module in a function, making the variables local to that module, since all variables are function scoped. 
 
-For us to use any of the functions or data from this module, the JavaSript file must have a module.exports object that contains all the functions/data. When we wrap the module in a function, the function returns this module.export object. **It technically doesn't have to be an object, it can just be one function, or an array, or string, etc. but an object allows us to export more**
+For us to use any of the functions or data from this module, the JavaSript file must have a module.exports object that contains all the functions/data (Remember, it's a module, hence "Module" and it needs to have exports, hence "exports". It's our job to specify what the module will export though!). When we wrap the module in a function, the function returns this module.export object. **It technically doesn't have to be an object, it can just be one function, or an array, or string, etc. but an object allows us to export more**
+
+**To summarize:**
+ -Node modules are JavaScript Files
+ -They are "required" in from other files
+ -The "require" function wraps the module in a function and returns the module.exports object
+ -Variables inside the module are local to that file
 
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
@@ -105,3 +112,47 @@ To send back a response, some of the options are:
  - res.render()
  - res.redirect()
  - res.send();
+
+### Summary of the Express Flow
+To get a better idea of the flow of express, we take the points above and create sort a list of the steps:
+ - Create a webserver object using http.createServer, the creation of this server should take in a function that you want to run when the server recieves a request. Because it's a function to respond to the a request to the webserver, the function needs to take in two arguments, the request (req) and the response (res), these are the HTTP request and response objects. The request object is to allow us to see what a client is requesting, and the response object allows us to respond to the client, it contains methods for us to use.
+ - Instead of passing in a function we pass in the express object that is exported from our "server.js" file, which itself is most likely a function that runs the functions in the express object.
+ - Then we tell the server to listen a specific port using "server.listen(<port number>)
+ - Now when the server recieves a request the express object takes that request and runs in through several functions in the "server.js" file.
+ - The express object uses "app.use('/', <route-name>)" to route the request to specific functions in a router object, these are essentially mini express objects. Essentially, we're sending the request around to see what web server function (a function that receives a req and res) to run. 
+	
+## Mongoose
+Mongoose is a module that allows us to interact with a MongoDB in a more intuitive way, and also allows some structure to our data in the MongoDB non-schema database. Some important notes on how we use Mongoose are:
+- To allow us to work with mongodb we first need to connect to it. to do so we with mongoose, it's a simple line
+```
+mongoose.connect(<local host path to db name>, {connection options})
+```
+- The mongoose has an object in it called "connection" which we can use to check that status of the connection. "mongoose.connection.on('expected status', callback)" On whatever connection status of the connection to the db, run this callback function.
+- Once we have connection established, **how do we send data?** First we need to create a scheme, the structure of the data that we want to send to the database. To do so, we export the class object, Schema, from mongoose, and we create these schema objects by sending in the data structure as an object. 
+```
+const movieSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  releaseYear: {
+    type: Number,
+    default: function () {
+      return new Date().getFullYear();
+    }
+  }, mpaaRating: String,
+  cast: [String],
+  nowShowing: { type: Boolean, default: false }
+}, {
+  timestamps: true
+});
+```
+- Once we have a Schema, we turn it into a model. The model is another class which accepts a string variable and a schema object into the constructor. When we create an instance of this model, we send in data that is aligned with structure defined in schema. Then we can use methods in the model object to send data to the database. This instance will send data to the collection with a name the same as the string variable we defined in the model class earlier. 
+- After we create the instance we can save it to the database. 
+- The model class also has a static method which is used to find documents in the Mongodb in the collection named afted the string passed into the mongoose model.
+- All methods called on the instance or the class requires a callback function as they are async functions.
+- **Just to re-iterate the steps of saving data to a database:**
+  - Create schema for data structure
+  - Make schema into a model (A class that stores the methdos to communicate with MongoDB
+  - To send data create instance of the model and send in an object with the same structure as the schema so that the class constructor can construct the object.
+  - Call the method save and incude a callback function
