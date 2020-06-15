@@ -5,6 +5,7 @@ My notes on back-end technologies. This is by no mean a comprehsive coverage of 
  - [Node.JS](#nodejs)
  - [ExpressJS](#expressjs)
  - [Mongoose](#mongoose)
+ - [Cross Origin Resource Sharing - CORS](#cors)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -156,3 +157,13 @@ const movieSchema = new Schema({
   - Make schema into a model (A class that stores the methdos to communicate with MongoDB
   - To send data create instance of the model and send in an object with the same structure as the schema so that the class constructor can construct the object.
   - Call the method save and incude a callback function
+
+## CORS
+This is a topic that's technically not just server related, the knowledge of CORS is releavent to all web developers, especially when it comes to using APIS or developing APIS. As a result, the topic of CORS, Cross-Origin Resource Sharing, is in this README for backend technologies.
+
+Cross-Origin is in reference to a cross-origin request which is when a domain makes an HTTP request to another domain. For example, http://domain-a.com makes a request to https://domain-b. However, for secruity reasons, all browsers prevent JavaScript from making request cross origins. Obivously, if we could not make any cross-origin request, web applications today would not be near anywhere to what we are used to, modern browsers do allow cross-origin requests as long as cross-origin resource sharing is followed.
+
+Essentially, APIs need to specify which origins (whcich websites) are allowed to make requests, in express, we use the CORS middleware to do this.  If we look at the options for this [CORS Middleware](https://expressjs.com/en/resources/middleware/cors.html) we can see that there different ways we can restrict access. 
+
+
+
