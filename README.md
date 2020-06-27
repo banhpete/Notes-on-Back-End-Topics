@@ -6,6 +6,7 @@ My notes on back-end technologies. This is by no mean a comprehsive coverage of 
  - [ExpressJS](#expressjs)
  - [Mongoose](#mongoose)
  - [Cross Origin Resource Sharing - CORS](#cors)
+ - [Python](#python)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -175,5 +176,61 @@ Cross-Origin is in reference to a cross-origin request which is when a domain ma
 
 Essentially, APIs need to specify which origins (whcich websites) are allowed to make requests, in express, we use the CORS middleware to do this.  If we look at the options for this [CORS Middleware](https://expressjs.com/en/resources/middleware/cors.html) we can see that there different ways we can restrict access. 
 
+## Python
+Python is another programming language, and similiar to JavaScript, it is a high-level interpreted programming language and is also used for web development, that being said, Python is used in far more applications.
 
+Unlike JavaScript, Python exists outside of a browser naturally, and we can call the interpreter in our shell and use it as REPL. 
 
+Somethings to note about the Python Language:
+ - Cannot declare a variable wihtout setting it
+ - Naming convention is to use snake_case
+ - Every piece of data in python is an objec, there are no primitive data
+ - No undefined or null, just "None". 
+ - Uses acutual float types
+ - There are no type coercion, you can't just add a string or number together
+ - Indentation is important, no curly brackets are used in python, it uses identation to separate code
+ - Ternary expressions are wrriten like "This value if<condition> else this value
+ - Falsey values in python are: False, None, 0, or empty sequences or collections
+ - Logical operators are just the words "and" and "or"
+ 	- Like JavaScript, "or" returns an operand as follows: "If the first operand is truthy, return it, otherwise return the second operand."
+	- "and" returns an operand as follows: "If the first operand is falsey, return it, otherwise return the second operand."
+ - Like JavaScript, python has container data types too, such as objects and arrays, but even more!
+	- Dictionaries are like JavaScript Objects, however:
+		- All strings used as keys need to be quoted
+		- Square brackets need to be used
+	- List are pythons arrays
+	- List comprehensions are ways to create a new list with another list. We assentially write code in square brackets, to iternate over another list, and it will create a new for us, the basic sytanx is as follows: # [<expression> for <item> in <list>] meaning: I want <expression> for each <item> in <list>.
+	- List is considered a sequence, and there exists more, such as the tuple which is an immunutable sequence, and a string, a sequence of charts.
+	- Sequences (List, tupbles, and strings) can be unpacked meaning we can assigning multiple values innside  the sequence to differnet variables all in one line of code. For example colors = ('red', 'green', 'blue'), r, g, b = colors.
+	- Seququences can also be sliced like the slice method, but we use the following syntax: a_sequence[m:n].
+ - With python, functions:
+	- Cannot edit global variables without using the global keyword and naming the functions inside the function! Offers protection to global variables.
+	- Are not hoisted
+	- Can not exist without anything inside, hence we use the "pass" statement
+	- Cannot be assigned to a variable
+	- Uses what are called lamda functions as anonymouse inline functions. These functions are essentially the one lined arrow functions we see in JavaScript, they cannot contain a code block, just one expression. Lamnda functions are written as follow: lambda arguments : expression. 
+	- Python uses * to intake multiple arguments similiar to using "...". Python can also accept multiple key-value pair arguments using **.
+ - Python has what are called decorater functions which are higher-order functions (accepts and returns an argument)
+	- To use a decorater on a function, before we define a function we write @<decorater name> right over top.
+	- Decorators essentially add more logic to a function by wrapping it another functions and returning it. We have to be careful when doing this though, as it changes the functions name, and this will confuse things, especially if there's a bug in the function. This is why inside the decorator, another decorator is used to allow a function to maintain its name. 
+	-As you can see below, the decorator function, "do_twice", must also have the wrapper function return the function if we want the function to maintain its return value AND the wrapper function must accept parameters if the original function has arguments.
+	
+```
+from functools import wraps
+
+def do_twice(func):
+  @wraps(func) # use the wraps decorator from Python's functools module
+  def wrapper(*args, **kwargs):
+    func(*args, **kwargs)
+    return func(*args, **kwargs)
+
+  return wrapper
+```
+
+- Python also has classes.
+	- To view the attributes or methods of an object or any instance of a class we can use the dir() function.
+	- Like classes in JavaScript, python uses a constructor function to create an instance of a class, this function is called __init__. This function should accept all the properties expected when creating an instance of this class but the very first argument must be "self".
+	- Unlike JavaScript, python uses 'self' instead of 'this'. All methods inside a class should accept the arguemnt self to provide it context to the instance. 
+	- Classes in python can have class members (methods or attributes) which are intended to be accesed/invoked by the class and not the instance. Any class methods need to be passed to the classmethod decorator, and it needs the parameter cls.
+	- When extending a class, we just pass a super class into the subclass and then call the __int__ off the super class.
+- Python objects also have what are called magic methods which are meant to be overloaded by the coder. These methods have some default codes already and are executed in certain steps of a process, like __init__ 
