@@ -122,8 +122,18 @@ To get a better idea of the flow of express, we take the points above and create
  - Now when the server recieves a request the express object takes that request and runs in through several functions in the "server.js" file.
  - The express object uses "app.use('/', <route-name>)" to route the request to specific functions in a router object, these are essentially mini express objects. Essentially, we're sending the request around to see what web server function (a function that receives a req and res) to run. 
 	
+### In relation to MVC Design Pattern
+Model-View-Controller (MVC) is a software design pattern for developing user interfaces diving the trelated program logic into three interconnected elements, Model, View, and Controller.
+  - **Views** Is what the user will see and interact with. Depending on how a user interacts with the Views, the controller component will do different things.
+  - **Controller** This is the component that accepts input from the view, and these inputs are translated to actions for the model. It also receives input from the model and translates it to actions for the view (like how things should be rendered).
+  - **Model** This is the component that handles the data of the application.
+  
+When using express, and the express generator, the general design of the express app follows a MVC pattern, where you have the "Views" folder, "Controller" folde rand the "Models" Folder.
+	
 ## Mongoose
-Mongoose is a module that allows us to interact with a MongoDB in a more intuitive way, and also allows some structure to our data in the MongoDB non-schema database. Some important notes on how we use Mongoose are:
+Mongoose is an JavaScript module that allows us to interact with a MongoDB in a more intuitive way, instead of writing MongoDB commands everytime we want to pull data from it, Mongoose provides us with easier syntax/functions. It also allows some structure to our data in the MongoDB non-schema database. Mongoose is what is known as a Object Document Mapper (ODM) meaning it basically provides us with objects that allows us to interact with our database in our code. For example, when we have a mongoDB collection we want to work in our application, and we wanto edits document or add documents, Mongoose, makes it into an object and we can work with it easier rather than writing several lines of MongoDB commands. 
+
+Some important notes on how we use Mongoose are:
 - To allow us to work with mongodb we first need to connect to it. to do so we with mongoose, it's a simple line
 ```
 mongoose.connect(<local host path to db name>, {connection options})
