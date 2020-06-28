@@ -7,6 +7,7 @@ My notes on back-end technologies. This is by no mean a comprehsive coverage of 
  - [Mongoose](#mongoose)
  - [Cross Origin Resource Sharing - CORS](#cors)
  - [Python](#python)
+ - [Django](#django)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -234,3 +235,18 @@ def do_twice(func):
 	- Classes in python can have class members (methods or attributes) which are intended to be accesed/invoked by the class and not the instance. Any class methods need to be passed to the classmethod decorator, and it needs the parameter cls.
 	- When extending a class, we just pass a super class into the subclass and then call the __int__ off the super class.
 - Python objects also have what are called magic methods which are meant to be overloaded by the coder. These methods have some default codes already and are executed in certain steps of a process, like __init__ 
+
+Python can be run in the terminal like Nodejs, and it can run python files (also like nodejs). Python also has 'pip' which is similiar to Nodejs NPM, it allows you to download Python Packages/Modules.
+
+## Django
+Django is a web framework that allows us to use python to develop web applications. Think of Django as what Express is to NodeJs/Javascript, it tells you how to write Python such that you can host a web application. It is a module that we download.
+
+With Django, while it follows the MVC pattern, it's called the MVT architecture and Django follows a different vocabulary. Django still has the model that interacts with a database BUT instead of a controller,  there is a view (it views the request and response) and instead of a view there is a template (the file to be sent to the user).
+
+Now a general overview of how Django works and the relationships between the components is shown below:
+![Relationship of Django Components](https://i.imgur.com/1fFg7lz.png)
+
+As we can see from the the picture, Django is a python module so it is contained with Python (meaning that it's just python code that we use to host the web server and handle the requests/responses).
+
+The request goes to a Django Project, specifically the urls.py file which will then direct to an app, these are the functionalities of a web app, therefore, a Django project can have multiple apps. The apps are separate folders that also have urls.py file which directs a request to specific views and then in the view, it may invoke a model to interact with the database. The view will then eventually send a template layer back to the browser as a response.
+
