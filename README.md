@@ -236,7 +236,7 @@ def do_twice(func):
 	- When extending a class, we just pass a super class into the subclass and then call the __int__ off the super class.
 - Python objects also have what are called magic methods which are meant to be overloaded by the coder. These methods have some default codes already and are executed in certain steps of a process, like __init__ 
 
-Python can be run in the terminal like Nodejs, and it can run python files (also like nodejs). Python also has 'pip' which is similiar to Nodejs NPM, it allows you to download Python Packages/Modules.
+Python can be run in the terminal like Nodejs, and it can run python files (also like nodejs). Python also has 'pip3' which is similiar to Nodejs NPM, it allows you to download Python Packages/Modules.
 
 ## Django
 Django is a web framework that allows us to use python to develop web applications. Think of Django as what Express is to NodeJs/Javascript, it tells you how to write Python such that you can host a web application. It is a module that we download.
@@ -248,5 +248,5 @@ Now a general overview of how Django works and the relationships between the com
 
 As we can see from the the picture, Django is a python module so it is contained with Python (meaning that it's just python code that we use to host the web server and handle the requests/responses).
 
-The request goes to a Django Project, specifically the urls.py file which will then direct to an app, these are the functionalities of a web app, therefore, a Django project can have multiple apps. The apps are separate folders that also have urls.py file which directs a request to specific views and then in the view, it may invoke a model to interact with the database. The view will then eventually send a template layer back to the browser as a response.
+The request goes to a Django Project, specifically the urls.py file which will then direct to an app, these are the functionalities of a web project, therefore, a Django project can have multiple apps. The apps are separate folders that also have urls.py file which directs a request to specific views and then in the view, it may invoke a model to interact with the database. The view will then eventually send a template layer back to the browser as a response.
 
