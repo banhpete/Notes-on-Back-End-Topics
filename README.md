@@ -8,6 +8,7 @@ My notes on back-end technologies. This is by no mean a comprehsive coverage of 
  - [Cross Origin Resource Sharing - CORS](#cors)
  - [Python](#python)
  - [Django](#django)
+ - [Oauth](#oauth)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -249,4 +250,15 @@ Now a general overview of how Django works and the relationships between the com
 As we can see from the the picture, Django is a python module so it is contained with Python (meaning that it's just python code that we use to host the web server and handle the requests/responses).
 
 The request goes to a Django Project, specifically the urls.py file which will then direct to an app, these are the functionalities of a web project, therefore, a Django project can have multiple apps. The apps are separate folders that also have urls.py file which directs a request to specific views and then in the view, it may invoke a model to interact with the database. The view will then eventually send a template layer back to the browser as a response.
+
+## Oauth
+Oauth is an open standard authorization protocol that stands for Open Authorization, and describes how a user can grant a website/application access to their information on another website/application (think Google, Facebook, etc) so that they can use. It is **important**  to note that Oauth has nothing to do with authentication, it is not confirming/validating the identity of person at all, it is just authorizing an application to make API requests on a user's behalf, the application is not validating the user is.. well the user. If we think about it, when a website uses OAuth to access your google info and you're already logged in, you don't actually have to log in again, there is no authenication!
+
+**So how does OAuth work?**
+
+1. Firstly, whatever website/application/platform you want your applicaition to access and gather data, you need to obtain OAuth 2.0 credentials, specifically a client ID and a client secret from them. Depending on the app, (server-sided or javascript web, or etc.) you may need to provide a redirect URL.
+2. After receiving the credentials we can start implementing OAuth into our website/application. Our website/applcation first needs to get consent from a user to use their info from a different website, so to do that, our website/application needs to send/redirect the user to the OAuth server where they need to say "Yes I give consent" or "No, I don't". This redirection shall be to an url that contains the client ID so that the Oauth server can tell the user who is requesting their info. THE URL shall also contain the scope of the info being request (contact, email, etc.).
+3. If a user gives consent, they will then be redirected to our website through the url we provided to other application mentioned in step 1. With this redirect, our server will now have an authorization code. With this authorization code, we have our website/application make an exchange for an access token to the API we want to gather data from on the behalf of the user.
+
+
 
