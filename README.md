@@ -277,9 +277,11 @@ While we mentioned an example of models above, some furter notes on writing mode
 -When writing models, consider what type of data you want for each field/column, and also consider how the models relate to other models.
 -When relating a model to another:
   - Use django.db.models.ForeignKey for Many-to-one relationships
+    - For many to one relationships, the entity that has the foreign key should be the one that many of them belongs to one. For example, in the relationship between cars and manufactuers, the car should have the foreign key. Think of it from an SQL perspective, a column should not have multiple ID's. If we asked the manufactuer to hold the foreign keys of all cars, how could it fit in one column.
   - Use django.db.models.ManyToManyField for many to many relationships
+    - For many to many relationships, essentially what is happening is that we have a secondary table that is connecting two other tables together. When we are setting this up for two entities, only one entity needs to have the many to many field.
   - Use django.db.models.OneToOneField for one to one relationships
-
+-When we are ready to write the model, we begin with writing the class, and then adding in different fields. A field seems to be a class which we can give field options to, and other additional parameters.
 
 ## Oauth
 Oauth is an open standard authorization protocol that stands for Open Authorization, and describes how a user can grant a website/application access to their information on another website/application (think Google, Facebook, etc) so that they can use. It is **important**  to note that Oauth has nothing to do with authentication, it is not confirming/validating the identity of person at all, it is just authorizing an application to make API requests on a user's behalf, the application is not validating the user is.. well the user. If we think about it, when a website uses OAuth to access your google info and you're already logged in, you don't actually have to log in again, there is no authenication!
