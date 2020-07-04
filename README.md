@@ -283,6 +283,30 @@ While we mentioned an example of models above, some furter notes on writing mode
   - Use django.db.models.OneToOneField for one to one relationships
 -When we are ready to write the model, we begin with writing the class, and then adding in different fields. A field seems to be a class which we can give field options to, and other additional parameters.
 
+**The Model Manager**
+Anytime we create a Model class, Django adds a Manager object, we use this object to perform databse queries to the table connected to the model class. The manager objects have the functions:
+-model.objects.all() - Returns all objects
+-model.objects.filter() - Returns all objects meeting a certain condition passed in the filter option. The conditions that the filter function accepts uses the format "field = somevlaue". We can write more complicated conditiosn using lookuptypes, these are appended to the field such that it looks like "field__lookuptype = value". For example, say we have a class with an "age" field, we can write "age__lte=3" meaning "age less than or equal to 3".
+-model.objects.exlcude() - Returns all objects that don't meet a certain condition passed in the filter option. This is almost the as the filter function.
+-model.objects.get() - This returns one object. This raises an error if it can't find anything so we need to wrap it in some sort of error handling. This can be written with multiple fields.
+-model.objects.order_by(). To make it in ascending order, we use the field, to make it descending we use the field but with a minus sign prepended to it. 
+
+All of these functions return a querySet which can have additional database querys added to it through python. When we query like above we can think of it as saying "For this model, I have all these objects, please give me all, or filter or exclude, etc."
+
+**The Related Manager**
+The related manager is what Django creates for every one to many, and many to many relationship which allows us to access data related to a model instance. In a one to many relationship, the model instance that is the "one" in ths relationship can access the data of the "many" use the related manager object. In a many to many relationship, the one model instance to have to manytomanyfield can access the data for the other "many" easily as it's part of the class.s For the model instances that do not have the manytomanyfield in the class, we use the related manager.
+
+**Writing Views**
+There are two ways of writing views, using functions or using classes. The classes we create to handle views are subclasses of Django's generic classes which were specifically made to handle certain actions, therefore we need to import them into the file. These generic classes include:
+-DetailView
+-CreateView
+-DeleteView
+-UpdateView
+
+These classes have already defined functions we can use as the view functions, so ultimately when we are writing a function in the path() function in the urls.py file. As a side note it's interesting, we are actually writing in a function to return another function, that's why you'll notice besides the function we call there is the parenthesis. 
+
+When writing these classes, we need to specify what model the classes are expected to work with, this will be an attribute within the class. Different views will have different attributes expected.
+
 ## Oauth
 Oauth is an open standard authorization protocol that stands for Open Authorization, and describes how a user can grant a website/application access to their information on another website/application (think Google, Facebook, etc) so that they can use. It is **important**  to note that Oauth has nothing to do with authentication, it is not confirming/validating the identity of person at all, it is just authorizing an application to make API requests on a user's behalf, the application is not validating the user is.. well the user. If we think about it, when a website uses OAuth to access your google info and you're already logged in, you don't actually have to log in again, there is no authenication!
 
