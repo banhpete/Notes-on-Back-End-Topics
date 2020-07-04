@@ -249,7 +249,37 @@ Now a general overview of how Django works and the relationships between the com
 
 As we can see from the the picture, Django is a python module so it is contained with Python (meaning that it's just python code that we use to host the web server and handle the requests/responses).
 
-The request goes to a Django Project, specifically the urls.py file which will then direct to an app, these are the functionalities of a web project, therefore, a Django project can have multiple apps. The apps are separate folders that also have urls.py file which directs a request to specific views and then in the view, it may invoke a model to interact with the database. The view will then eventually send a template layer back to the browser as a response.
+A request will go to the Django Project, specifically to the urls.py file which will then direct it to an app, these are the functionalities of a web project, therefore, a Django project can have multiple apps. These apps are separate folders that also have their own urls.py file which directs a request to specific views and then in the view, it may invoke a model to interact with the database. The view will then eventually send a template layer back to the browser as a response.
+
+**Note on the Models and Migrations**
+So to reiterate, a model object is used to perfrom CRUD data operations on a specific table in a database; they are *mapped* to that table. How a model pbject is able to do that is by using Django's object relational mapping (ORM) which maps a model object to a table. We can use this object and the methods built into this object to interact/perform CRUD operations on a table.
+
+The model object is an instance of the model class which extends Django's super class which provides the model, and ultimately the model object, the connection to the database table.
+
+Because a model is essentially just an representation of a table, when defining a model, you're basically defining the columns of the table. For example: 
+```
+class Bird(models.Model):
+  name = models.CharField(max_length=100)
+  breed = models.CharField(max_length=100)
+  description = models.TextField(max_length=250)
+  age = models.IntegerField()
+  locations = models.ManyToManyField(Location)
+ ```
+The code above refers to a table called "bird" (It's name-spaced to the app) with the following columns: name, breed, description, age, and locations. Note that this class is extending Django's model class from model.Model from django.db(django's files for handling the db).
+ 
+Now to have it create a row in this new table, we use built in functions of the class to create model objects instances of the Model class. 
+
+Now for these models to work, the table needs to exist first, therefore we need to create them in the database using SQL. Now fortunately Django does magic for us when we run the command "py manage.py makemigrations" and "py manage.py migrate" - essentially the Django modules reads our models and is able to interpret it as SQL and run it for us! So with that in mind, for any of other models to work, we need to remember to always to make migrations, and then migrate them. We can think of it as Django first reading our models and making SQL instructions (make migrations) and then running them (migrate).
+
+**How to write models**
+While we mentioned an example of models above, some furter notes on writing models are the following:
+-Firstly we always need to import models from django.db, this provides the classes, objects and functions to create models.
+-When writing models, consider what type of data you want for each field/column, and also consider how the models relate to other models.
+-When relating a model to another:
+  - Use django.db.models.ForeignKey for Many-to-one relationships
+  - Use django.db.models.ManyToManyField for many to many relationships
+  - Use django.db.models.OneToOneField for one to one relationships
+
 
 ## Oauth
 Oauth is an open standard authorization protocol that stands for Open Authorization, and describes how a user can grant a website/application access to their information on another website/application (think Google, Facebook, etc) so that they can use. It is **important**  to note that Oauth has nothing to do with authentication, it is not confirming/validating the identity of person at all, it is just authorizing an application to make API requests on a user's behalf, the application is not validating the user is.. well the user. If we think about it, when a website uses OAuth to access your google info and you're already logged in, you don't actually have to log in again, there is no authenication!
