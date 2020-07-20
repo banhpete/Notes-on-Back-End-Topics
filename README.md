@@ -1,5 +1,5 @@
 # Notes on Back-End Topics
-My notes on back-end topic. This is by no mean a comprehsive coverage of all the back-end topics or a complete representation of my knowledge of the subject, these notes are just to help me build a general understanding of each topic. The following topics are covered:
+My notes on back-end topics. This is by no mean a comprehsive coverage of all the back-end topics or a complete representation of my knowledge of the subject, these notes are just to help me build a general understanding of each topic. The following topics are covered:
  - [Notes on HTTP Request](#http-request)
  - [Apache](#apache)
  - [Node.JS](#nodejs)
