@@ -9,6 +9,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [Python](#python)
  - [Django](#django)
  - [Oauth](#oauth)
+ - [API](#api)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -316,5 +317,7 @@ Oauth is an open standard authorization protocol that stands for Open Authorizat
 2. After receiving the credentials we can start implementing OAuth into our website/application. Our website/applcation first needs to get consent from a user to use their info from a different website, so to do that, our website/application needs to send/redirect the user to the OAuth server where they need to say "Yes I give consent" or "No, I don't". This redirection shall be to an url that contains the client ID so that the Oauth server can tell the user who is requesting their info. THE URL shall also contain the scope of the info being request (contact, email, etc.).
 3. If a user gives consent, they will then be redirected to our website through the url we provided to other application mentioned in step 1. With this redirect, our server will now have an authorization code. With this authorization code, we have our website/application make an exchange for an access token to the API we want to gather data from on the behalf of the user.
 
+## API
+API stands for application programming interface, and it is a very broad and generic term, we see this term almost everywhere when we develop, so what is it? More to come.
 
 
