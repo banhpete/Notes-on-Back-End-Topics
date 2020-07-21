@@ -318,6 +318,15 @@ Oauth is an open standard authorization protocol that stands for Open Authorizat
 3. If a user gives consent, they will then be redirected to our website through the url we provided to other application mentioned in step 1. With this redirect, our server will now have an authorization code. With this authorization code, we have our website/application make an exchange for an access token to the API we want to gather data from on the behalf of the user.
 
 ## API
-API stands for application programming interface, and it is a very broad and generic term, we see this term almost everywhere when we develop, so what is it? More to come.
+API stands for application programming interface, and it is a very broad and generic term, we see this term almost everywhere when we develop, so what is it? Basically, it is the software intermediary that allows two applications to talk to each other , for example, a software may use an api to talk to certain parts of a computer, like the webcam. How this will usually look like is bascailly just a piece of a code that one application can use to interact with another, think about JavaScript, we use certain commands provided by a library to work with it, that command is the library's API. Now there are many versions of an API, there is the SOAP API, REST API, and now also GraphQL. REST APIs seem to be the most relevanet but GraphQL is becoming more popular, where SOAP doesn't seem to really be significant (most likely because it's focus ed on XML).
+
+In the world of development, APIs are extremely useful as it allows us to take advantage of a platform's implementation to do the nitty-gritty work; More APIs, less code! However this is a fine balance. 
+
+To iterate, here's another definition of an API:
+Application Programming Interfaces originally, and still do, allow programmers to use the functionality of a library, a framework, an operating system, or any piece of software that exposes its functionality through its defined interface. Basically a lot of applications have their own API so other applications can access them for whatever reason.
+
+### So what is a REST API?
+A REST API is a very common API on the web, and it is an API that follows the REST (Representational State Transfer) architectural style. Now what is this REST achitectural style? The principals of REST are:
+
 
 
