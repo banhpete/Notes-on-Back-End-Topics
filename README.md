@@ -326,7 +326,15 @@ To iterate, here's another definition of an API:
 Application Programming Interfaces originally, and still do, allow programmers to use the functionality of a library, a framework, an operating system, or any piece of software that exposes its functionality through its defined interface. Basically a lot of applications have their own API so other applications can access them for whatever reason.
 
 ### So what is a REST API?
-A REST API is a very common API on the web, and it is an API that follows the REST (Representational State Transfer) architectural style. Now what is this REST achitectural style? The principals of REST are:
-
+A REST API is a very common API on the web, and it is an API that follows the REST (Representational State Transfer) architectural style for allowing computers to communicate. Now what is this REST achitectural style? The principals of REST are:
+ - There is a separation of client and server - code on the client side can be changed at any time without affect the server and vice versa. Essentially, they are both their own thing.
+ - Statelessness - meaning the server does not need to know anything about what state the client is in and vice versa. When a request is sent the server does not keep any information on the client, it contains no state on that client.
+ - Cacheable - Data shall be labelled cachable. This will improve performance.
+ - Uniform interface - When using a REST API, the resource shall be identified... (There is more to this though it is beyond me... check out [this](https://restfulapi.net/).
+**Consider that REST is not HTTP**, however people often make that connection due to how.. well connected they are. REST is basically an architectural style to help make the web more streamline, and standard (therefore simple, lightweight and fast). What we should take way from this when are making a RESTful API is:
+ - We should use the HTTP Verbs, GET, POST, PUT, and DELETE in a reasonable way (This is actually not related to REST really, but most people would expect them to be used in a specific way)
+ - The resource should be indicated in the URL. The path shall help  you identify what resource you are trying to retrieve.
+ 
+ 
 
 
