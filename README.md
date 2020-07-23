@@ -65,7 +65,7 @@ For us to use any of the functions or data from this module, the JavaSript file 
 
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
-ExpressJS is a node module, which serves a web framework whiich helps us use Node.Js to set up a web server and program it to handle HTTP request. This can be installed from NPM.
+ExpressJS is a node module, which serves as a web framework which helps us use Node.Js to set up a web server and program it to handle HTTP request. This can be installed from NPM.
 
 ### How do we use ExpressJS?
 First we need to have ExpressJS installed through NPM, and then to be able to use express in the CLI, we need to have express-genetaor installed globally. ** If we wanted to only have it installed locally, we can use the key word 'npx' before 'express' to use it in the CLI.
