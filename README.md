@@ -68,7 +68,7 @@ For us to use any of the functions or data from this module, the JavaSript file 
 ExpressJS is a node module, which serves as a web framework which helps us use Node.Js to set up a web server and program it to handle HTTP request. This can be installed from NPM.
 
 ### How do we use ExpressJS?
-First we need to have ExpressJS installed through NPM, and then to be able to use express in the CLI, we need to have express-genetaor installed globally. ** If we wanted to only have it installed locally, we can use the key word 'npx' before 'express' to use it in the CLI.
+First we need to have ExpressJS installed through NPM, and then to be able to use express in the CLI, we need to have express-genetaor installed globally. ** If we want only want to use it one time and not download it, we can use the key word 'npx' before 'express-generator' to use it in the CLI.
 
 Then we can create an Express App Skeleton by using the command "express <name of app>. This will create a folder with the following structure:
  ```
@@ -135,7 +135,52 @@ Model-View-Controller (MVC) is a software design pattern for developing user int
   - **Model** This is the component that handles the data of the application.
   
 When using express, and the express generator, the general design of the express app follows a MVC pattern, where you have the "Views" folder, "Controller" folde rand the "Models" Folder.
-	
+
+### Revisit of NodeJS/ExpressJS
+To better understand how ExpressJS works, let's revisit NodeJS and how we can host a server without Express. In NodeJS we would:
+ - Create a server using Http.createserver. This function takes in a callback function that essentially will dictate how a server will respond when a request comes through. This callback function is expected to take in two parameters, request and response object. These are both created automatically by the server when a request comes through, and we use them to either:
+   - Take data from the request using the request object
+   - Create a response using the response object
+ - Tell the server to listen to a certain port so that it can receieve requests. This will cause the server to run the callback function passed into it.
+ - The following code shows this simple process:
+ ```
+ const http = require('http')
+ 
+ const server = http.createServer(function(req,res){
+ 	res.write('Hello World')
+	res.end()
+ })
+ 
+ server.listen(3000, function(){
+ 	console.log('hello, i'm a server running at 3000');
+ })
+ ```
+Now we can add more to this code above so we can deal with routing and different methods by looking into the request object and looking at the URL, and the method, etc, etc. **However**, it is not a great experience, and hence why we use ExpressJS. 
+
+So what is ExpressJS and how does it work? ExpressJS is a NodeJS framework for web server development! It provides a far more enjoyable experience when it comes to writing the logic for a server. To host a server with Express, we can:
+ - Require in express, this returns a function
+ - Run the express function which returns what is known as express app, this seems to be an object that will contain all the logic to handling a request.
+ - We use methods that are built in the object, such as .get, .post, .use, .all, to add the server logic to the app.
+   - The get method takes in a string first which is the url route that you want to write logic for when it is called using the get method. The second parameter is a callback function which take in the request, and response object, and similiar to the callback function that we discussed in the NodeJS function, this will detail how we handle the request and what we send as a response.
+   - The post method is basically the same as get, but it's expect a post method.
+   - So the functions that take in request and response are actually called Middleware Functions. Essentially what we're doing when we use use, get, set, post, etc. is adding logic or rather middleware to the app, which basically tells the app how to modify the request/response, and how to handle the request/response.
+ - Once we add all the logic/middleware to the app that we want, we create a server with this app, just like in nodejs, we use http.createServer, but in this case the app is our callback function. Think of the app as a function, ultimately it is an object as well. We could also just say app.listen(), this is express's custom method which automatically creates the server for us.
+ - Consider the following code:
+ ```
+ const express = require('express')
+ const app = express()
+ 
+ app.get('', function(req,res,next){
+ 	res.send('<h1>Hello World</h1>')
+ })
+ 
+ app.listen(3000, function(){
+ 	console.log('Hello! I'm on 3000');
+ })
+ ```
+ Now Express also offers us to modularize the logic in an app, by essentially creating mini apps called routers. The routers are essentailly the same, we create them like an express app, we add logic to it using methods such as .get, .post, etc. and then give it to the express app, and the express app will mount it to some route using app.use.
+
+
 ## Mongoose
 Mongoose is an JavaScript module that allows us to interact with a MongoDB in a more intuitive way, instead of writing MongoDB commands everytime we want to pull data from it, Mongoose provides us with easier syntax/functions. It also allows some structure to our data in the MongoDB non-schema database. Mongoose is what is known as a Object Document Mapper (ODM) meaning it basically provides us with objects that allows us to interact with our database in our code. For example, when we have a mongoDB collection we want to work in our application, and we wanto edits document or add documents, Mongoose, makes it into an object and we can work with it easier rather than writing several lines of MongoDB commands. 
 
