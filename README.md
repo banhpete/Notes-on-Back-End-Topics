@@ -10,6 +10,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [Django](#django)
  - [Oauth](#oauth)
  - [API](#api)
+ - [npm scripts](#npm)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -381,6 +382,12 @@ A REST API is a very common API on the web, and it is an API that follows the RE
 **Consider that REST is not HTTP**, however people often make that connection due to how.. well connected they are. REST is basically an architectural style to help make the web more streamline, and standard (therefore simple, lightweight and fast). What we should take way from this when are making a RESTful API is:
  - We should use the HTTP Verbs, GET, POST, PUT, and DELETE in a reasonable way (This is actually not related to REST really, but most people would expect them to be used in a specific way)
  - The resource should be indicated in the URL. The path shall help  you identify what resource you are trying to retrieve.
+ 
+ ## npm
+ Obivously not really just a back-end topic, but will keep in here anyways. Just wanted to include random notes on npm:
+ - npm start will run the start script in the json package. npm start, like npm test, npm stop, npm restart, does not require us to have "run" before it.
+ - To add custom scripts to our package.json file, we just add to the script object. For custom scripts, we have to write "run".
+ - We can add "--depth 0" to "npm list" to show only the first level of our npm modules directory.
  
  
 
