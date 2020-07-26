@@ -374,14 +374,20 @@ To iterate, here's another definition of an API:
 Application Programming Interfaces originally, and still do, allow programmers to use the functionality of a library, a framework, an operating system, or any piece of software that exposes its functionality through its defined interface. Basically a lot of applications have their own API so other applications can access them for whatever reason.
 
 ### So what is a REST API?
-A REST API is a very common API on the web, and it is an API that follows the REST (Representational State Transfer) architectural style for allowing computers to communicate. Now what is this REST achitectural style? The principals of REST are:
- - There is a separation of client and server - code on the client side can be changed at any time without affect the server and vice versa. Essentially, they are both their own thing.
+A REST API is a very common type of API on the web, and it is an API that follows the REST (Representational State Transfer) architectural style for allowing computers to communicate. Now by itself, REST, the representational state transfer, just means that a representation of state from a database is being transferred (you don't actually receieve the actual resource, it's not like it leaves the database) but when we describe an API as Restful, it means it follows the REST architectural styles defined in Roy Fielding's dissertation to perform REST in an optimum way. Now what is this REST achitectural style? The principals of REST are:
+ - There is a separation of client and server - code on the client side can be changed at any time without affect the server and vice versa. Essentially, they are both their own thing. This is important because:
+   - It improves the portability of the user interface of the API
+   - Both can evolve on its own
  - Statelessness - meaning the server does not need to know anything about what state the client is in and vice versa. When a request is sent the server does not keep any information on the client, it contains no state on that client.
- - Cacheable - Data shall be labelled cachable. This will improve performance.
- - Uniform interface - When using a REST API, the resource shall be identified... (There is more to this though it is beyond me... check out [this](https://restfulapi.net/).
+ - Cacheable - Data shall be labelled cachable. This will improve performance. *You have to label it cacheable*
+ - Uniform interface - When using a REST API, the resource that is requested should be identified in the request, for example in Restful web services we identify the resource in the URI, and this should be uniform regardless of what we're doing to the resource. 
+ - The API must be a layered system such that a client cannot tell whether it's connected directly to the end serever ot to an intermediary along the way.
 **Consider that REST is not HTTP**, however people often make that connection due to how.. well connected they are. REST is basically an architectural style to help make the web more streamline, and standard (therefore simple, lightweight and fast). What we should take way from this when are making a RESTful API is:
  - We should use the HTTP Verbs, GET, POST, PUT, and DELETE in a reasonable way (This is actually not related to REST really, but most people would expect them to be used in a specific way)
- - The resource should be indicated in the URL. The path shall help  you identify what resource you are trying to retrieve.
+ - The resource should be indicated in the URL. The path shall help you identify what resource you are trying to update, get, post or delete. There **should not** be a different name for a resource just because you're deleting it or updating it - **keep it simple**. Consider the following: 
+ ![Image of REST API endpoints](https://i.imgur.com/Y9n4SPT.png)
+ 
+ So, if asked to create an API to collect data such as the first name, last name of a person, consider what the resource is (a person) and write the endpoint with the resource in mind. So it may look like /api/person.
  
  ## npm
  Obivously not really just a back-end topic, but will keep in here anyways. Just wanted to include random notes on npm:
