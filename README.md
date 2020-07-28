@@ -121,6 +121,8 @@ To send back a response, some of the options are:
  - res.redirect()
  - res.send();
 
+**A note on the response** - These do not return the function, and therefore, code logic may still run even if a response is sent to the client (depending on how the code is written). It's good practice to always return the response.
+
 ### Summary of the Express Flow
 To get a better idea of the flow of express, we take the points above and create sort a list of the steps:
  - Create a webserver object using http.createServer, the creation of this server should take in a function that you want to run when the server recieves a request. Because it's a function to respond to the a request to the webserver, the function needs to take in two arguments, the request (req) and the response (res), these are the HTTP request and response objects. The request object is to allow us to see what a client is requesting, and the response object allows us to respond to the client, it contains methods for us to use.
@@ -388,6 +390,12 @@ A REST API is a very common type of API on the web, and it is an API that follow
  ![Image of REST API endpoints](https://i.imgur.com/Y9n4SPT.png)
  
  So, if asked to create an API to collect data such as the first name, last name of a person, consider what the resource is (a person) and write the endpoint with the resource in mind. So it may look like /api/person.
+ 
+ ### General Rules of the HTTP Verb Methods
+ - **GET** - Is for getting data. When we use thing, we should expect a list of data, **unless** an id is specified.
+ - **POST** - Is for creating a new resource, we do not need a specific id because we're just creating a new one! By convention, an API should usually return the new object created - it's a good idae because a may person may want to use the ID right away.
+ - **PUT** - Is for updating a resource. Because you can't update a whole list of resource, you need to specify the id of the resource you updated. The request is expected to have data to detail what should be changed. It is debatable on whether or not we should return the updated object. Say we have an update field on the object, maybe at that point we do then want to send back an updated object.
+ - **DELETE** - Is for deleting a resource. For the URL, we need to specify the ID of the resource we're deleting. What this should return really depends, there isn't a standard.
  
  ## npm
  Obivously not really just a back-end topic, but will keep in here anyways. Just wanted to include random notes on npm:
