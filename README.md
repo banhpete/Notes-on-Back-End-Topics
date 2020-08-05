@@ -11,6 +11,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [Oauth](#oauth)
  - [API](#api)
  - [npm scripts](#npm)
+ - [GraphQL](#graphql)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -403,6 +404,46 @@ A REST API is a very common type of API on the web, and it is an API that follow
  - To add custom scripts to our package.json file, we just add to the script object. For custom scripts, we have to write "run".
  - We can add "--depth 0" to "npm list" to show only the first level of our npm modules directory.
  
+## Graphql
+GraphlQL is a new (relatively anyways) API standards that is intended to provide a more efficient and flexible alternative to RESTful APIS. Essentially, the difference is that a GraphQL API allows a user to specify what data they want from the API where as a RESTFUL api does not allow for this, hence why it's more efficient, you're not receiving more data than you need (remember, an api may serve many clients and as a result can not be designed just for one client hence why it's always sending more data than a particular client needs). A GraphQL server only exposes **one** endpoint as while, again, making it more efficient.
  
+GraphQL can be considered to be a query language for api meaning it's database agnostic.
 
+Just to re-iterate, GraphQL benefits include:
+-No longer overfetching and even underfecting data
+-Freedom to change frontend without worrying about how we might need to change the RESTful API to adapt to the changes on the front end.
+-Insightful analysis of what data is being requested, this can allow us to determine what specific fields we can depreciated if any.
+
+### Schema Definition Language
+While we define several endpoints for a RESTful api, for a GraphQL api, we use use a single endpoint and define the capabilities of that endpoint with a type system. We use this single endpoint to either query, mutate, or subscribe to a data type, and every data type has it's own schema which is written using a schema definition language (SDL). Like any other schema it has fields, and we have to define what sort of data type each field is, so for example:
+```
+type Person {
+  name: String!
+  age: Int!
+}
+```
+We have a type called Person, and the schema is given above. It has two fields called name and age, and they are a String data and a integer data respectively. The ! means that the field is required for each instance of the Person type. Now similiar to the schemas we have dealt with before, these can also have relationships that has a type point to another type. For example a person can have a one to many relationship with a type called post, therefore it will be written as:
+```
+type Person {
+  name: String!
+  age: Int!
+  posts:[Post!]!
+}
+```
+The type for the post must also show this relationship.
+
+Now say we defined all our schemas, is that it? **No!** We then have to define the entry points for the request sent by the client, the entry point basically details what type of request are we going to have, these will be special root types.
+```
+type Query {...}
+type Mutation {...}
+type Subscription {...}
+```
+
+In these special root types, you have root fields, basically these will describe what type will be returned. For example in the type Query, what do we want to Query? The people type of course! So it may look something like this:
+```
+type Query {
+  allPersons(last: Int): [Person!]!
+}
+```
+The parenthesis dictate what can be passed to the allPersons field as an agrument which will filter the data.
 
