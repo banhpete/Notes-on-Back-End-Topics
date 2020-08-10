@@ -12,6 +12,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [API](#api)
  - [npm scripts](#npm)
  - [GraphQL](#graphql)
+ - [JavaScript Runtime Environment](#javascript-runtime-environment)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -446,4 +447,16 @@ type Query {
 }
 ```
 The parenthesis dictate what can be passed to the allPersons field as an agrument which will filter the data.
+
+## Javascript Runtime Environment
+This is another one of those topics that isn't neccessarily related to back-end only but because I want to write about it to understand how Nodejs works, the notes on the Javascript Runtime Environment will be kept in my notes for back-end. Now to understand the NodeJs Runtime environment, we will start start by looking at the runtime environemnt in the borwser and then we'll make comparisons.
+
+### Browser JS Runtime Environment
+So we know that all Browsers have JavaScript Engines, this is what allows us to parse JavaScript code and run it in the browser:
+-Google Chrome has V8
+-Mozilla Firefox has Spidermonkey
+-Safari has Nitro
+-Edge has Chakra
+
+So if the JavaScript Engine is parsing the JavaScript code, what more do we need to know above how JavaScript is runned? Well it turns out there is so much more. In a browser the JavaScript Engine is a part of a bigger system, the JavaScript Runtime Environment. Without this runtime environment how we expect JavaScript to work in the browser would be very, very different.
 
