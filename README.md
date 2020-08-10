@@ -13,6 +13,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [npm scripts](#npm)
  - [GraphQL](#graphql)
  - [JavaScript Runtime Environment](#javascript-runtime-environment)
+ - [Node.js Multiprocesses-/Multithreads](#nodejs-multiprocesses-multithreads)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -452,11 +453,31 @@ The parenthesis dictate what can be passed to the allPersons field as an agrumen
 This is another one of those topics that isn't neccessarily related to back-end only but because I want to write about it to understand how Nodejs works, the notes on the Javascript Runtime Environment will be kept in my notes for back-end. Now to understand the NodeJs Runtime environment, we will start start by looking at the runtime environemnt in the borwser and then we'll make comparisons.
 
 ### Browser JS Runtime Environment
+#### JS Engine
 So we know that all Browsers have JavaScript Engines, this is what allows us to parse JavaScript code and run it in the browser:
 -Google Chrome has V8
 -Mozilla Firefox has Spidermonkey
 -Safari has Nitro
 -Edge has Chakra
 
+As it parses the code, the JavaScript Engine uses two other containers. The memory heap, which obivously is to store data such as variables and declarations, and the stack which keeps track of what actionable items from a JavaScript Code is being parsed. It follows a Last In First Out structure. Now because it is a stack, and therefore only one actionable item is parsed at a time, JavaScript is considered to be running synchronously - it does one thing at a time on a single thread.
+
 So if the JavaScript Engine is parsing the JavaScript code, what more do we need to know above how JavaScript is runned? Well it turns out there is so much more. In a browser the JavaScript Engine is a part of a bigger system, the JavaScript Runtime Environment. Without this runtime environment how we expect JavaScript to work in the browser would be very, very different.
 
+#### JS Web API Container
+A browser provides to the JavaScript Runtime Environemnt a Web API container, this contains APIs that allows us to do so much more with JavaScript, like letting us interact with the DOM, make HTTP requests, log to the browser console, etc, etc. So often, the JavaScript Engine will make API calls to this container. Now here's the kicker, when JavaScript makes these calls, it doesn't wait for what's returned, instead it makes the call and then it moves on to the next piece of source code, so what the hell? How can it do that? This is because these APIs run on their **own threads!** Now to ensure that the data from the Web API is returned to the JavaScript Engine, these web API calls usually include a callback Function (The function that the JavaScript Runtime Environment uses to callback a request it sent out to an API). So when the API is done, it will send the callback function to another container in the environment, which seems to have several names, such as the callback queue, event queue or even the task queue.
+
+#### The Task Queue
+The task queueu will store all the callback functions from web apis, to event handlers. These functions will not run right away, instead they wait in queue until the call stack clears up. Once the stack does clear, the event loop, another component of the runtime environment (not a container though), checks the task queue and will put the callback in the stack again for the engine to parse.
+
+#### Further Clarifications
+- With what we disussed above, we should make a note now that, JavaScript isn't actually aysnchronous - it's single threaded, it can only complete one operation at a time, and everything else is blocked until that is completed. That being said it can act asynchronously because of callbacks and the event loop. 
+- There exist a thread pool in the JavaScript Runtime Environment, these are the other APIs we access.
+- Functions calls in the stack are usually non-blocking, this is because they make calls to Web APIS. Callbacks on the other hand can be blocking because only one callback can be run at a time.
+- The JavaScript Runtime Environment allows for concurrency due to the fact that you have one thread for the JavaScript Engine and you have other threads for APIs.
+
+### Node JS Runtime Environment
+Essentially, the Node JS Runtime Environment is more or less the same as the Browser JS Runtime Environmnet, however, instead of web apis you have C++ apis. Instead of a have a JavaScript Runtime Environment for each session you have on a browser, for NodeJS you have a JavaScript Runtime Environment for each process. A NodeJS Process is created whenever you run JavaScript Code in NodeJS.
+
+## Nodejs Multiprocesses Multithreads
+The cool thing about NodeJS is that one process can actually spawn other processes called child processes, and these are on different threads, therefore we can have multiple threads, and multiple event loops. This is great because that means we can better take advantage of a CPU.
