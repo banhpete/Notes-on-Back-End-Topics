@@ -3,6 +3,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [Notes on HTTP Request](#http-request)
  - [Apache](#apache)
  - [Node.JS](#nodejs)
+ - [Advanced Node.Js](#advanced-nodejs)
  - [ExpressJS](#expressjs)
  - [Mongoose](#mongoose)
  - [Cross Origin Resource Sharing - CORS](#cors)
@@ -66,6 +67,14 @@ For us to use any of the functions or data from this module, the JavaSript file 
  -They are "required" in from other files
  -The "require" function wraps the module in a function and returns the module.exports object
  -Variables inside the module are local to that file
+ 
+## Advanced Nodejs
+These are notes from the online book (also available on github), "Node Beyond Basics" to add on to the previous Node.js notes.
+
+### Clarifications
+Node.js is not just the V8 Engine, it is a JavaScript Runtime Environment! It consists of the JavaScript Engine(which consists of the heap and the callstack), Node APIs, the Event Queue and the Event Loop (which handles events from the event queues by pushing the callback into the callstack). Whenever you run something in Node.js, it'll create a proces with its own runtime environment - **this is important to note** because it means we only have one callstack per process. 
+
+
 
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
