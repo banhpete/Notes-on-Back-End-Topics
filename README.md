@@ -74,7 +74,13 @@ These are notes from the online book (also available on github), "Node Beyond Ba
 ### Clarifications
 Node.js is not just the V8 Engine, it is a JavaScript Runtime Environment! It consists of the JavaScript Engine(which consists of the heap and the callstack), Node APIs, the Event Queue and the Event Loop (which handles events from the event queues by pushing the callback into the callstack). Whenever you run something in Node.js, it'll create a proces with its own runtime environment - **this is important to note** because it means we only have one callstack per process. 
 
-
+### Requiring Modules
+- Recall the reason why Nodejs is called nodejs, it uses single-process building blocks that are considered to be nodes to a build a large distributed program. For us to bring all these nodes together, we use the require module to bring them together.
+- When requiring a module, nodejs will actually look through several different folders to find what you are requesting if you dont not include a path. This is useful because sometimes we have modules installed globally as opposed to locally.
+  - The module that is closest to the project will always be called first. The more local it is the higher it's priority.
+- We don't have to require in a module.js file, rather, it can be a folder instead. However if this is the case, the folder must either have an index.js file **OR** we specify a main property in a package.json file in the folder.
+- Instead of using 'require' we can use 'resolve' instead *if* we are just looking to check if a module exists or not. If no file exists, it returns an error, if it does, we return a path.
+- 
 
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
