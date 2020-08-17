@@ -77,10 +77,20 @@ Node.js is not just the V8 Engine, it is a JavaScript Runtime Environment! It co
 ### Requiring Modules
 - Recall the reason why Nodejs is called nodejs, it uses single-process building blocks that are considered to be nodes to a build a large distributed program. For us to bring all these nodes together, we use the require module to bring them together.
 - When requiring a module, nodejs will actually look through several different folders to find what you are requesting if you dont not include a path. This is useful because sometimes we have modules installed globally as opposed to locally.
-  - The module that is closest to the project will always be called first. The more local it is the higher it's priority.
+  	- The module that is closest to the project will always be called first. The more local it is the higher it's priority.
 - We don't have to require in a module.js file, rather, it can be a folder instead. However if this is the case, the folder must either have an index.js file **OR** we specify a main property in a package.json file in the folder.
-- Instead of using 'require' we can use 'resolve' instead *if* we are just looking to check if a module exists or not. If no file exists, it returns an error, if it does, we return a path.
-- 
+- We talk about requiring in modules, but **how do we require modules in?** We use the the require object, which mainly acts as a function, however it has properties/methods that we can also call from it. This includes:
+  	- require.resovle: Checks if a module exists
+  	- require.extensions: Used by require to determine how to handle certain file extension (.js, .json, and .node)
+  	- require.main: Just a property that determines if require is being runned from as a stand-alone script or if it's being requried by other scripts.
+- When we require a module in, what happens is that js file is wrapped in a function, this function has 5 arguments, exports, require, module, filename and dirname.
+  	- This is why global variables in the module file are not really global, they're scoped to this function wrapper
+  	- exports is what is returned at the end of the function, this is why we always write to the module.exports/exports.
+  		- Remember that exports is actually just a reference to module.exports, and that itself is an object. This is why we can't just say exports = function, you're just removing exports referene to module.exports. Rather, we only use exports if we're writting properties to exports, otherwise we use module.exports = {} and write in the object.
+	- The module object just tells us more detail about a module, like which module is parent/child (who's calling who). When [Circular] is shown in the module object children property, there is a circular dependency, mean each module call out each other.
+- Modules are all loaded synchronously.
+- When we require a JSON file, it returns an object.
+- A .node file is a addon file written in C++ that Node.js can also require in.
 
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
