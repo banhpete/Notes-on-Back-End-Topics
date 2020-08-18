@@ -211,6 +211,14 @@ So what is ExpressJS and how does it work? ExpressJS is a NodeJS framework for w
  ```
  Now Express also offers us to modularize the logic in an app, by essentially creating mini apps called routers. The routers are essentailly the same, we create them like an express app, we add logic to it using methods such as .get, .post, etc. and then give it to the express app, and the express app will mount it to some route using app.use.
 
+### The Body Parser
+When a HTTP request is sent and a body is attached, this data will come as a readable stream. Hence, why when we receieve a response from an API, we always need to use Body.json() so that we can actually use the data.
+
+This is no different for receiving a request from a client on a Node server using Express. Hence why there is the express middleware, 'express.json()' which takes the request and extracts json from the readable stream that comes from the request body. When we log the request object, we do not see this readable stream.
+
+Now when a form sends data, this data will also be a readable steam as the data is a part of the request body. However, because it's from a form, the data will be urlencoded, hence in express we have to use another middleware called express.urlencoded instead to extract the data. 
+
+These middlewares only work if the header has a content-type that matches the type the middleware is looking for hence why it's important to use the correct header for any request.
 
 ## Mongoose
 Mongoose is an JavaScript module that allows us to interact with a MongoDB in a more intuitive way, instead of writing MongoDB commands everytime we want to pull data from it, Mongoose provides us with easier syntax/functions. It also allows some structure to our data in the MongoDB non-schema database. Mongoose is what is known as a Object Document Mapper (ODM) meaning it basically provides us with objects that allows us to interact with our database in our code. For example, when we have a mongoDB collection we want to work in our application, and we wanto edits document or add documents, Mongoose, makes it into an object and we can work with it easier rather than writing several lines of MongoDB commands. 
