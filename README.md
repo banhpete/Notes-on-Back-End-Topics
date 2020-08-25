@@ -15,6 +15,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [GraphQL](#graphql)
  - [JavaScript Runtime Environment](#javascript-runtime-environment)
  - [Node.js Multiprocesses-/Multithreads](#nodejs-multiprocesses-multithreads)
+ - [C#](#c#)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -514,3 +515,10 @@ Essentially, the Node JS Runtime Environment is more or less the same as the Bro
 
 ## Nodejs Multiprocesses Multithreads
 The cool thing about NodeJS is that one process can actually spawn other processes called child processes, and these are on different threads, therefore we can have multiple threads, and multiple event loops. This is great because that means we can better take advantage of a CPU.
+
+## C#
+These are just some random notes on concepts that came up while I was learning C#.
+- A class has fields which are essentially the variables inside a class. If we wanted to make these private (ie they are only accessible in the class) BUT have certain cases where the are accessible outside of the class, we create write a property. A **property** is a combination of a variable and a method - it has two methods, the get and set, which allow users to 'get' the private data from the class, and 'set' the private data
+	- So you define the property as a public variable, and generally you use the same name as the field you're making accessible, but with a upper case letter.
+	- Then in curly brackets, you write get and set, and you define these methods. The get is geneally just returning the field but the setting method may be such that it certain conditions must be met for a field to be set to a different variable.
+- C# has a feature called auto properties, where you define a property and you simply write {get; set;} beside it. There will automatically then be a private variable it knows you get and set, but in the end, this isn't really helpful - this is really just a public field with extra steps.
