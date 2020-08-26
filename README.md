@@ -518,7 +518,22 @@ The cool thing about NodeJS is that one process can actually spawn other process
 
 ## C#
 These are just some random notes on concepts that came up while I was learning C#.
+### Functions/Methods
+- Remember that all functions/methods in C# must indicate what is being returned. So rather than just write function and then the name of the function, we have what the function returns and then the name.
+### Properties
 - A class has fields which are essentially the variables inside a class. If we wanted to make these private (ie they are only accessible in the class) BUT have certain cases where the are accessible outside of the class, we create write a property. A **property** is a combination of a variable and a method - it has two methods, the get and set, which allow users to 'get' the private data from the class, and 'set' the private data
 	- So you define the property as a public variable, and generally you use the same name as the field you're making accessible, but with a upper case letter.
 	- Then in curly brackets, you write get and set, and you define these methods. The get is geneally just returning the field but the setting method may be such that it certain conditions must be met for a field to be set to a different variable.
 - C# has a feature called auto properties, where you define a property and you simply write {get; set;} beside it. There will automatically then be a private variable it knows you get and set, but in the end, this isn't really helpful - this is really just a public field with extra steps.
+### Abstract and Virtual
+- An abstract class is one that can only be extended by another class - you can instansiate it (cause it's abstract!).
+- An abstract method is a method that you create inside a class such that it forces subclasses to implement it. When writing the subclass we need to make sure the abstract method is implemented and that we write 'overide' to indicate 'hey we're implementing the abstract method you wanted us to"
+- So while an abstract method is basically empty code in the base class where a sub class NEEDS to override, we have a virtual class where it actually does something, but it CAN be overriden. **So yes, if a subclass wanted to override another method it either needs to be an abstract method or a virtual one**.
+### Interaces
+- So with classes, we can create subclasses to inherit from a class, and that we don't have to repeat code. Now what happens if we have several subclasses all extending the same base class, and we want some to share some methods/properties and others to not. This is where interfaces come in, these are completely abstract classes that are sort of modular. Subclasses can inhereit several interfaces, or no interfaces, it's up to you. This gives us flexbility to how we define base classes and how we extend base classes in subclasses.
+- Everything defined in an interface is abstract, so if a class does extend an interface it needs to be overridden. So it needs to show up in the code however we don't need to use the keyword ovreride when implementing an interface, it's assumed.
+- The interface be a type that we can pass into a method. 
+### Extension Methods
+- In C#, we can add to a class that is already defined through an extension method.
+- To create an extension method we define a new class, and in that class we write a method that takes in the type that we want to add to, BUT we need to write 'this' before the type. This will indicate 'Hey, this is the type we want to modify, and this is the function we want to add'
+- 
