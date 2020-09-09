@@ -16,6 +16,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [JavaScript Runtime Environment](#javascript-runtime-environment)
  - [Node.js Multiprocesses-/Multithreads](#nodejs-multiprocesses-multithreads)
  - [C#](#c#)
+ - [NoSQL vs SQL](#nosql-vs-sql)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -537,3 +538,26 @@ These are just some random notes on concepts that came up while I was learning C
 - In C#, we can add to a class that is already defined through an extension method.
 - To create an extension method we define a new class, and in that class we write a method that takes in the type that we want to add to, BUT we need to write 'this' before the type. This will indicate 'Hey, this is the type we want to modify, and this is the function we want to add'
 - 
+
+## Nosql vs sql
+### ACID and CAP
+To begin, it's important to understand two concept, ACID and CAP.
+
+ACID stands for atomicity, consistency, isolation, and durability, and it is a set of properties of a database transaction to ensure data validity despite errors, power failures, and other mishaps. In a silly and ironic way of thinking of it, think of a transaction as person, that person needs to avoid acid otherwise it can seriously mess them up and affect the memories (data) that it has. To expand on the four properties:
+- Atomicity means each transaction is one unit and it either completes or fails, no in between. It exist or doesn't exist, like Schrodinger's cat. If a transaction occurs partially, it could greatly impact a database.
+- Consistency means that a transaction can only bring a database from one valid state to another, basicaly meaning all rules of a database must always be complied, otherwise we may have corrupted data.
+- Isolation means transaction can occur concurrently but without affecting the database - I suppose in a sense, it means that transactions need to be isolated from one another such that transaction are not overlapping and affecting each other.
+- Durability means that the database exists in non-volatile memory so that transaction stay committed despite power failures.
+
+CAP stands for Consistency, Availability, and Partition tolerance, essentially it's a theorem that states that a database couldn't not provide more than two out of the three. to further expand on the three:
+- Consistency means we are always reading the most recent data
+- Availability means every request recieves a non-error response
+- Partition tolerance - System continues to operate despite an arbitrary number of messages being dropped 
+
+### NOSQL compared to SQL
+- Can refer to any type of database that is not SQL, generally we consider the document store database, but there's also the key-value stored, column stored, and graph stored.
+- Good for semi-structured data
+- Consistency can be sacrificed for performance meaning we don't follow any sort of rules (hence unstructured)
+- Better at horizontally scaling (more computers rather than more processors)
+- Has better performance but at cost of consistency and structure which may lead to data inconsistency.
+- More prone to errors?
