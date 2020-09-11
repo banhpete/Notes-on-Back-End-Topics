@@ -17,6 +17,7 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [Node.js Multiprocesses-/Multithreads](#nodejs-multiprocesses-multithreads)
  - [C#](#c#)
  - [NoSQL vs SQL](#nosql-vs-sql)
+ - [WebSockets](#websockets)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -561,3 +562,15 @@ CAP stands for Consistency, Availability, and Partition tolerance, essentially i
 - Better at horizontally scaling (more computers rather than more processors)
 - Has better performance but at cost of consistency and structure which may lead to data inconsistency.
 - More prone to errors?
+
+## WebSockets
+- A great article on how WebSockets work [here](https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-events-c43ba96df7c1).
+- WebSocket is a communication protocol that builds upon the TCP connection that allows a bidirectional and event-based communication between a server and a client, where a server is allowed to communicate with a client whenever, and vice versa. This is a huge contrast to what the server-client commmunication usually looks like where you only have the client communicating with the server. WebSocket is the technology powering real time messaging in several application today!
+- Before we had WebSocket, applications would do polling, which is where the client would constantly send the server HTTP requests to check for data, which you can imagine is quite expensive in terms of processing. There was an attempt to reduce how intense this was with long polling where a client would send a HTTP request, and that connection would stay on until data is returned, but regardless the fact that this connection still requires an HTTP request and a TCP connection has to be set up everytime still takes up lots of bandwidth. This [stack overflow answer](https://stackoverflow.com/questions/44731313/at-what-point-are-websockets-less-efficient-than-polling) describes why polling was inefficient well.
+
+### WebSockets vs Polling
+- To use the WebSocket Protocol, we start off with an http request, and then that gets upgraded to a webSocket protocol, and it just persists. The data that is sent over has no cookies, headers, etc. it's purely just the data and that is far smaller than the data sent in polling, again refer to this [stack overflow response](https://stackoverflow.com/questions/44731313/at-what-point-are-websockets-less-efficient-than-polling).
+
+### WebSockets Libraries
+- To work with WebSocket, there is the WebSocket API which is compatible with most browsers, however as like most web apis that come in the browser, there are open source libraries to add additional features and handle some of the smaller things of the api. Socket.io is one of them which helps us manage a websocket connection on the client and server.
+
