@@ -95,6 +95,29 @@ Node.js is not just the V8 Engine, it is a JavaScript Runtime Environment! It co
 - When we require a JSON file, it returns an object.
 - A .node file is a addon file written in C++ that Node.js can also require in.
 
+### Event Driven Architecture
+Node objects are usually instances of the EventEmitter class, and therefore will listen to events and handle them through event handlers, a callback function. Let's talk about callback first!
+
+#### Callbacks
+- Callbacks are functions you pass to other functions
+- A callback does not immediately imply asynchronous code, it really depends on what the function (the one being passed a callback) is doing.
+- An alternative to callbacks are promises, an object that allows us to handle the success and error cases of a function.
+
+#### Promises
+- To turn a function that uses callbacks into one that supports a promise interface instead we:
+ - First create a new function that returns a new promise
+ - In the promise we write the asynchronous code and write a callback inside of there.
+ - This callback will decide whether or not to resolve or reject our promise
+
+#### Event Emitters
+The eventemitter is at the core of Node asynchronous event driven architecture - many of node's builtin modules inherit from Event Emitter. Emitter objects has two main features, it can emit name events, and then it can register and unregister listener functions to these events.
+
+While events help make the nodejs asynchronous, the evidence of events does not immediately mean asynchrony. When an emitter emits, a listener will act right away.
+
+Event Emittters have a once mtehod meaning it only listesn to an event once.
+
+Event emitters allow us to build on top of Node's existing modules easily as listening to events is easy to integrate as opposed to having callbacks, and promises.
+
 ### Streams
 #### What is a stream?
 A collection of data that might not be available all at once - in what situation would we ever want to use a stream? When we're dealing with large amount of data or data that comes from an external source one chunk at a time. If we think about it, it makes sense to use streams for large files because we wouldn't want to save large data into memory, rather, we want to use the data as it streams in and then discard!
