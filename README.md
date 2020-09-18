@@ -95,6 +95,33 @@ Node.js is not just the V8 Engine, it is a JavaScript Runtime Environment! It co
 - When we require a JSON file, it returns an object.
 - A .node file is a addon file written in C++ that Node.js can also require in.
 
+### Streams
+#### What is a stream?
+A collection of data that might not be available all at once - in what situation would we ever want to use a stream? When we're dealing with large amount of data or data that comes from an external source one chunk at a time. If we think about it, it makes sense to use streams for large files because we wouldn't want to save large data into memory, rather, we want to use the data as it streams in and then discard!
+
+Think about Youtube, we stream videos, we don't download them onto our computer, that would be disastorous!
+
+There are four types of streams to consider, a readable stream, a writable stream, a duplex stream (readable and writable) and a transform stream (a duplex stream that transform data as it is written/read).
+
+#### Where does Node implement streams
+When a HTTP request is made to a NodeJS server, there is a readable stream, **hence why we couldn't just pull data from the body of an HTTP request**, we had to wait for it to come in. When responding to a client with a HTTP response, there is a writable stream.
+
+When we have a child process, the child process will have stdout and stderr streams which will be readable by the main process, and a stdin stream which is writable. The child process on the other hand will have a process.stdin stream that's readable, and a process.stdout and a process.stderr stream that is writable.
+
+The main process being a stream makes sense, especially when you make some sort of console application, the console will read data through a readable stream, the process.stdin.
+
+As a general note, whenever there is a readable stream, there is a writable stream.
+
+#### How to work with streams?
+All streams are instances of EventEmitters and so we can listen to events, think of WebSockets! However, the preferred method of working with streams is to use a pipe method. The source will always be a raedable stream, and the destionation has to be a writable one.
+
+With the pip method, events are handled automatically for you and again, this is only available for the readable stream.
+
+#### What can I take away from this?
+A lot of things that we use, such as HTTP responses, and requests are streams, and the reason for it being a stream is to efficiently transfer data, especially when the data is large.
+
+For the most parts, I can't see why many examples of when you want to use a stream yourself, but it's good to know especially as we work with streams everyday but we don't know it because we have other API's that handle a stream for us, for example, the body parser in expresss.
+
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
 ExpressJS is a node module, which serves as a web framework which helps us use Node.Js to set up a web server and program it to handle HTTP request. This can be installed from NPM.
