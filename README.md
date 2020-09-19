@@ -108,6 +108,8 @@ Node objects are usually instances of the EventEmitter class, and therefore will
  - First create a new function that returns a new promise
  - In the promise we write the asynchronous code and write a callback inside of there.
  - This callback will decide whether or not to resolve or reject our promise
+- There is actually a function from the util module that can help us create a promise out of a function that requires a callback. This function is called promisify.
+- The great things about promises is that now we can call io functions and let them run in parallel instead of waiting for an io function to return and then calling another.
 
 #### Event Emitters
 The eventemitter is at the core of Node asynchronous event driven architecture - many of node's builtin modules inherit from Event Emitter. Emitter objects has two main features, it can emit name events, and then it can register and unregister listener functions to these events.
@@ -144,6 +146,31 @@ With the pip method, events are handled automatically for you and again, this is
 A lot of things that we use, such as HTTP responses, and requests are streams, and the reason for it being a stream is to efficiently transfer data, especially when the data is large.
 
 For the most parts, I can't see why many examples of when you want to use a stream yourself, but it's good to know especially as we work with streams everyday but we don't know it because we have other API's that handle a stream for us, for example, the body parser in expresss.
+
+### Child Processes
+Recall that any node app is a single threaded and this works for the most parts, especially if we just have a simple web server that sends static files to the users. However, what if we have a particular endpoint where some intense calculation is required? This means that we may block the server from handling any request as it's too busy doing a calculation and this is not acceptable.
+
+This is where child processes come in - if used right, it could free up the thread our main process is on and prevent requets from being blocked. A child process is another process with its own thread that the main thread can spin up to help handle computation.
+
+#### Spin up Child Processes
+There are four ways to spin up a child process, spawn, fork, exec, and execFile. These are all functions from the child_process module.
+- The **spawn** function will create a child process, and we can pass it an OS command as an argument. This child process will have three streams that we can listen to for data.
+- The **exec** function which creates a shell to execute the command that is passed into a child process, this allows us to write actual shell commands but at a cost of efficiency. The child processes created out of this does not have streams, instead it buffers the output and sends it to a callback function. It's better to use exec when the data from the command is small since you're buffering it.
+- The **fork** function which creates a child process where the parent can communicate with by using the send function that is a part of the child process. It also takes in a module rather than a command to run. Because of this, Fork is usually the way to go if we want to run intense computation on a child_process so we don't block the main thread. The parent process can send info to child process through the function send, and we add an event listener to the child process to listen for the message event. The child process does the same.
+
+#### How do we used a forked child process to free up the thread?
+- Firstly we require the fork function from the child_processs module
+- In the request, we create a child process
+- The parent process sends a message to the child process to start the computation
+- We add listener to the child process so that when the child process sends a message back we respond to a user
+- This way, we're not waiting around to send a response back, and then we work on other requests.
+
+### Scaling Up
+As we discussed, forking is create for our server, and Nodejs takes this a step further with the cluster module to help us improve the performance of our server and make it more scalable.
+**Note** There are many ways we can make our server scalable, such as:
+- **Cloning** which is essentially cloning our application multipe times and each cloned instance handles a part of hte workload. Node has a built in module to do this.
+- **Decomposing** which is when you have multiple applications that do different things, this is often associated with microservices.
+- **Splitting** which is when you have application split into multiple instances and each instance is only responsible for a part of the application's data. 
 
 ## ExpressJS
 ### What is ExpressJS and why do we use it?
