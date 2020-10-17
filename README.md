@@ -1,7 +1,7 @@
 # Notes on Back-End Topics
 My notes on back-end topics. This is by no mean a comprehsive coverage of all the back-end topics or a complete representation of my knowledge of the subject, these notes are just to help me build a general understanding of each topic. The following topics are covered:
  - [Notes on HTTP Request](#http-request)
- - [Apache](#apache)
+ - [Webservers](#webservers)
  - [Node.JS](#nodejs)
  - [Advanced Node.Js](#advanced-nodejs)
  - [ExpressJS](#expressjs)
@@ -39,7 +39,12 @@ To talk about the back end technologies, it's important to make a note of how HT
     - 5xx Server Error
   - The HTTP response may also have a file to server in the browser, or CSS to style HTML, or JavaScript to run in the HTML.
 
-## Apache
+## Webservers
+According to MDN, a webserver can refer to both hardware and software. From a hardware perspective, a web server is a computer that stores all the files of a website (HTML, CSS and JS). From a software perspective, a web server is the software that sits on top of a computre to help control how web users access files from the computer(server), essentially it is handling HTTP requests, which is why generally we call them HTTP servers.
+
+Some popular webservers include Apache and Nginx. Now it's worth noting that NodeJS can actually be used to create a web server to handle HTTP requests.
+
+### Apache
 Apache is a software that serves as a web server to deliver or serve websites on the internet. Now remember, it is a web server, not a physical server, however it does runs on the physical server to act as the middle man between a client (browser) and a server. That is, a client will request a file from the server, the request will first go to the apache server to process and it will pull what it needs from the server to and send it back to the client.
 
 As a web server software, Apache can have modules added to increase its functionality. This includes a module for server side languages such as PHP, Perl or Lua to send files to a client that is modified based on certain settings/parameters sent to the server. So, essentially, what happens when you request a .php file from the apache server is that the apache server will access the php interpreter from the php module and run the php file so that it creates an HTML file to serve.
@@ -496,16 +501,21 @@ A REST API is a very common type of API on the web, and it is an API that follow
  - There is a separation of client and server - code on the client side can be changed at any time without affect the server and vice versa. Essentially, they are both their own thing. This is important because:
    - It improves the portability of the user interface of the API
    - Both can evolve on its own
- - Statelessness - meaning the server does not need to know anything about what state the client is in and vice versa. When a request is sent the server does not keep any information on the client, it contains no state on that client.
+ - Statelessness - meaning the server does not need to know anything about what state the client is in and vice versa. When a request is sent the server does not keep any information on the client, it contains no state on that client. This has always been confusing, as technically state is sent in a HTTP reques via cookies or local storage, so if API calls are through HTTP, isn't it technically stateful? No! Just because we have cookies doesn't mean a HTTP request is a stateful protocol, each request is still independent of each other, they do not know about each other. Additionally, when we say 'server does not keep any information on the client' we're talking about the HTTP server which only's job is to handle request, and all the requests are technically the same to it. Therefore, HTTP is stateless, and so are API calls.
  - Cacheable - Data shall be labelled cachable. This will improve performance. *You have to label it cacheable*
- - Uniform interface - When using a REST API, the resource that is requested should be identified in the request, for example in Restful web services we identify the resource in the URI, and this should be uniform regardless of what we're doing to the resource. 
+ - Uniform interface - When using a REST API, the resource that is requested should be identified in the request, for example in Restful web services we identify the resource in the URI, and this should be uniform regardless of what we're doing to the resource. So API endpoints should clearly indicate what resource we will be using and in the HTTP headers we detail what actions we want to use through the methods. Essentially consider your endpoints as nouns.
  - The API must be a layered system such that a client cannot tell whether it's connected directly to the end serever ot to an intermediary along the way.
 **Consider that REST is not HTTP**, however people often make that connection due to how.. well connected they are. REST is basically an architectural style to help make the web more streamline, and standard (therefore simple, lightweight and fast). What we should take way from this when are making a RESTful API is:
  - We should use the HTTP Verbs, GET, POST, PUT, and DELETE in a reasonable way (This is actually not related to REST really, but most people would expect them to be used in a specific way)
  - The resource should be indicated in the URL. The path shall help you identify what resource you are trying to update, get, post or delete. There **should not** be a different name for a resource just because you're deleting it or updating it - **keep it simple**. Consider the following: 
  ![Image of REST API endpoints](https://i.imgur.com/Y9n4SPT.png)
+ - Just another note, as Zak mentioned before, a common practice in restful API when you want to get information on a specific resource is to uses slashes, that are appended to the endpoint.
  
  So, if asked to create an API to collect data such as the first name, last name of a person, consider what the resource is (a person) and write the endpoint with the resource in mind. So it may look like /api/person.
+ 
+ ### How can we test API's?
+ - Postman is obiviously one of the best ways, especially since it has a nice UI to shower all the headers, the reponse, etc.
+ - Browsers are powerful as well, especially if you need to just check the data. Yoou can even add additional features to get it to work more like postman where you can change a request and etc. Browsers are pretty sweet for GET requests especially since you're just looking at the data, no custom headers required.
  
  ### General Rules of the HTTP Verb Methods
  - **GET** - Is for getting data. When we use thing, we should expect a list of data, **unless** an id is specified.
@@ -597,13 +607,37 @@ The cool thing about NodeJS is that one process can actually spawn other process
 
 ## C#
 These are just some random notes on concepts that came up while I was learning C#.
+
+### Classes
+- Similar to JS, classes are essentialy templates that an object will be based on, that is, when you create an object, it inherits variables and methods from a class. Being an OOP, using classes and objects is extremely important to help provide structure to program and prevent code from beign repeated (DRY).
+- To create a class, we just write class and then the name of the class. Classes have what are called class members, these can either be fields or methods which an object will generally inherit.
+
 ### Functions/Methods
-- Remember that all functions/methods in C# must indicate what is being returned. So rather than just write function and then the name of the function, we have what the function returns and then the name.
+- Remember that all functions/methods in C# must indicate what is being returned. So rather than just write function and then the name of the function, we have what the function returns and then the name. In javascript it's more explicit if something is a function since we write 'function'. In C#, you write the access modifier, data type returned, and then the name.
+
+### Constructors
+- Classes will usually have what is called a constructor, a function that is called when an object of that class is created. The constructor can be used for many things, but it could sort of be thought of as an initializing function when a new object is created, such that it can set default values for the objects fields.
+- To have add a constructor to a class, all you do is write class name inside the class, with parenthesis appended at the end and the access modifier 'public' before it (to allow this constructor to work when creating the new object of a classs occurs within other classes - more on access modifiers later). Between the parenthesis, we can have it include parameters so that the creation of a new object can take in arguments and initialize the object.
+
+### Access Modifiers
+- Access modifiers are used for fields, methods, properties and even classes. It's the word that comes before anythign else and it essentially describes who has access to the field, method, property or class.
+- This way, we can have it such that data is hidden from other classes/objects. For example if you have something as private, the code is only accessible within the same class while public is the oppostie. This allow us to achieve encapsulation in OOP, basically to protect senstive data in a class. If a field or method does not have any access modifier it will naturally by private.
+
 ### Properties
 - A class has fields which are essentially the variables inside a class. If we wanted to make these private (ie they are only accessible in the class) BUT have certain cases where the are accessible outside of the class, we create write a property. A **property** is a combination of a variable and a method - it has two methods, the get and set, which allow users to 'get' the private data from the class, and 'set' the private data
 	- So you define the property as a public variable, and generally you use the same name as the field you're making accessible, but with a upper case letter.
 	- Then in curly brackets, you write get and set, and you define these methods. The get is geneally just returning the field but the setting method may be such that it certain conditions must be met for a field to be set to a different variable.
 - C# has a feature called auto properties, where you define a property and you simply write {get; set;} beside it. There will automatically then be a private variable it knows you get and set, but in the end, this isn't really helpful - this is really just a public field with extra steps.
+- A great thing you can do with properties is to create the private field, then create the property to interact with the private field using get and set, and then you can logic to that set so that a user has to set it to specific values else it won't work.
+- One way to think of properties, they basically fields, but that may be made read only or set only.
+
+### Inheritance
+- When creating a class, you can have so that the class inherits from another class meaning the fields and methods are passed down from a parent class (base) to a child class (derived).
+- The idue of this is to help reduce code. If we think of it, when we begin writing our classes, we might want to have a base class and then have a bunch of child cases because they are all similar but they have something that sets them apart. For example, the base class can be human, and then child classes can be male and female. This way the male and female share a lot of properties and methods through the human class, and then they have their own fields/methods being a male/female.
+- The second a class inherits from another, that class will have its methods, properties, and fields. So in the constructor of the second class, you can starting the fields/properties that are inherited.
+- Now hang on! In JavaScript when a class extends another, that class has to call super to call the other constructor! Whenever there's an extension, and both classses have a constructor it always does get a lil trickier. For C#, the dervied class, the constructor also has to be modified slighty, it needs to be extended too to include the base class's constructor. The constructor of the derived class should include the neccessary parameters, and those paremeters will be based to the constructor of the base class.
+- How do we extend? For Classes -> class {classname} : {baseclassname). For constructors => public {className}(parameters for both derived and base) : base(parameters for base)
+
 ### Abstract and Virtual
 - An abstract class is one that can only be extended by another class - you can instansiate it (cause it's abstract!).
 - An abstract method is a method that you create inside a class such that it forces subclasses to implement it. When writing the subclass we need to make sure the abstract method is implemented and that we write 'overide' to indicate 'hey we're implementing the abstract method you wanted us to"
@@ -615,7 +649,8 @@ These are just some random notes on concepts that came up while I was learning C
 ### Extension Methods
 - In C#, we can add to a class that is already defined through an extension method.
 - To create an extension method we define a new class, and in that class we write a method that takes in the type that we want to add to, BUT we need to write 'this' before the type. This will indicate 'Hey, this is the type we want to modify, and this is the function we want to add'
-- 
+### Building WEB APIs with ASP.NET Core
+
 
 ## Nosql vs sql
 ### ACID and CAP
