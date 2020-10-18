@@ -639,18 +639,36 @@ These are just some random notes on concepts that came up while I was learning C
 - How do we extend? For Classes -> class {classname} : {baseclassname). For constructors => public {className}(parameters for both derived and base) : base(parameters for base)
 
 ### Abstract and Virtual
-- An abstract class is one that can only be extended by another class - you can instansiate it (cause it's abstract!).
+- An abstract class is one that can only be extended by another class - you can't instansiate it (cause it's abstract!).
 - An abstract method is a method that you create inside a class such that it forces subclasses to implement it. When writing the subclass we need to make sure the abstract method is implemented and that we write 'overide' to indicate 'hey we're implementing the abstract method you wanted us to"
 - So while an abstract method is basically empty code in the base class where a sub class NEEDS to override, we have a virtual class where it actually does something, but it CAN be overriden. **So yes, if a subclass wanted to override another method it either needs to be an abstract method or a virtual one**.
+- We can think of virtual as giving a class a default function, and whatever class inherits from it can use the default function OR override it with their own. Remember, the meaning of virtual is "almost or nearly as described, but not completely or according to strict definition.". Essentially this default function is almost or nearly as described, BUT it's not perfect, you can change it if you want when you extend this class.
+- We can think of abstract as giving a template to the base class in terms of what methods it need so we can dictate what should be in a derived class. Anything that is abstract means it's sort of an idea, it's our job to flush it out.
+
+
 ### Interaces
 - So with classes, we can create subclasses to inherit from a class, and that we don't have to repeat code. Now what happens if we have several subclasses all extending the same base class, and we want some to share some methods/properties and others to not. This is where interfaces come in, these are completely abstract classes that are sort of modular. Subclasses can inhereit several interfaces, or no interfaces, it's up to you. This gives us flexbility to how we define base classes and how we extend base classes in subclasses.
 - Everything defined in an interface is abstract, so if a class does extend an interface it needs to be overridden. So it needs to show up in the code however we don't need to use the keyword ovreride when implementing an interface, it's assumed.
 - The interface be a type that we can pass into a method. 
+- An interface is a completely abstract class, we may ask ourselves, well.. what's the point? And that is very valid, where an interface really shines is the fact that a class can inherit multiple interfaces.
+
+### Generics
+- In my understanding of generics, it's sort of a way to make C# a little more flexible in terms of what data type should be used in a class or method. Obviously in JavaScript this is never an issue, a function can take in any type of data, and while it can lead to errors, it also givers the developer a little bit more developer in how to write code and may even help with keeping code DRY because you don't care about the data being passed in as arguments. Now in C#, because everything is typed, it's easy to imagine how you might need to write the same code multiple time just for different data types, and that's not DRY! That's where Generics come in! Instead of specifying in a method or function what data type is expected, you give a generic type that you later fill in.
+- To indicate a method or class will have a generic type, we write beside it when it's initialized <{Type Name}>.
+- Now when we use this class or call this method, not only do we pass it arguments, we also pass it a type.
+
 ### Extension Methods
 - In C#, we can add to a class that is already defined through an extension method.
 - To create an extension method we define a new class, and in that class we write a method that takes in the type that we want to add to, BUT we need to write 'this' before the type. This will indicate 'Hey, this is the type we want to modify, and this is the function we want to add'
-### Building WEB APIs with ASP.NET Core
 
+### Object Initializer vs Constructor
+- Object Initializer essentially serves a similiar purpose to a constructor in the sense that it's used to initialize an object and set properties of an object. Now when would ever use this over constructor? Remember that for constructors, it's good practice to always incldue all arguments that are required, but what if sometimes you want to different properties set when you create an object? That's when object initializers come in handy, remember, you can use both at the same time.
+- Object Initializers are used by creating the new object and then writing beside in curly brackets the following: {name of property}:{set value}
+
+### Building WEB APIs with ASP.NET Core
+#### Controllers
+- Remember that controllers are what deals with HTTP request in a MVC. .NET provides a ControllerBase Class to inherit from, there is specifically a APIController Class that we can use.
+- In the ApiController there's are convenience features to handle API, and there are action methods that map to a specific HTTP Request. Actually to handle A HTTP Get request we can use an attribute or method from the APIController Class.
 
 ## Nosql vs sql
 ### ACID and CAP
