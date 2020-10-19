@@ -655,11 +655,14 @@ These are just some random notes on concepts that came up while I was learning C
 ### Generics
 - In my understanding of generics, it's sort of a way to make C# a little more flexible in terms of what data type should be used in a class or method. Obviously in JavaScript this is never an issue, a function can take in any type of data, and while it can lead to errors, it also givers the developer a little bit more developer in how to write code and may even help with keeping code DRY because you don't care about the data being passed in as arguments. Now in C#, because everything is typed, it's easy to imagine how you might need to write the same code multiple time just for different data types, and that's not DRY! That's where Generics come in! Instead of specifying in a method or function what data type is expected, you give a generic type that you later fill in.
 - To indicate a method or class will have a generic type, we write beside it when it's initialized <{Type Name}>.
-- Now when we use this class or call this method, not only do we pass it arguments, we also pass it a type.
+- Now when we use this class or call this method, not only do we pass it arguments, we also pass it a type. Remember this method has to be static too since the class is.
+- The first parameter of this method must be 'this', the class, and then it's name. This basically tells us that this method is to go to 'this' class.
 
 ### Extension Methods
-- In C#, we can add to a class that is already defined through an extension method.
-- To create an extension method we define a new class, and in that class we write a method that takes in the type that we want to add to, BUT we need to write 'this' before the type. This will indicate 'Hey, this is the type we want to modify, and this is the function we want to add'
+- In C#, we can add additional methods to a class without recompiling the original class, struct or interface.
+- You can imagine that this is actually very useful, especially in an OOP. You could have a class you want to use but you you need it to have additional methods, so bam! Extension methods are the way to go.
+- To create an extension method, it needs to be contained in a class, so we create a new static class, generally this will be named {classToBeExtended}Extensions. So for example if we wanted to extend 'Int', we would have the public static class 'IntExtensions'.
+- Inside this static class is where we add the methods that will become an additional method of the class we want to extend. 
 
 ### Object Initializer vs Constructor
 - Object Initializer essentially serves a similiar purpose to a constructor in the sense that it's used to initialize an object and set properties of an object. Now when would ever use this over constructor? Remember that for constructors, it's good practice to always incldue all arguments that are required, but what if sometimes you want to different properties set when you create an object? That's when object initializers come in handy, remember, you can use both at the same time.
