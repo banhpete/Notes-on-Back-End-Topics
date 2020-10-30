@@ -608,6 +608,19 @@ The cool thing about NodeJS is that one process can actually spawn other process
 ## C#
 These are just some random notes on concepts that came up while I was learning C#.
 
+### Learning with Mosh
+#### Primitive Type
+- A basic type provided by a programming language as a basic building block. Take char in C#, this helps build a string.
+#### Float, Decimal and Double
+- These three are considered real numbers. A number that we write with a decimal is automatically considered a docuble. To make it a float we have to include the letter f and to make it a decimal we have to include the letter m.
+#### var
+- C# has the keyword var which basically allows us to create a variable that detects the data type of whatever is assigned to it.
+
+
+#### Overflowing
+- Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
+#### 
+
 ### Classes
 - Similar to JS, classes are essentialy templates that an object will be based on, that is, when you create an object, it inherits variables and methods from a class. Being an OOP, using classes and objects is extremely important to help provide structure to program and prevent code from beign repeated (DRY).
 - To create a class, we just write class and then the name of the class. Classes have what are called class members, these can either be fields or methods which an object will generally inherit.
@@ -644,7 +657,6 @@ These are just some random notes on concepts that came up while I was learning C
 - So while an abstract method is basically empty code in the base class where a sub class NEEDS to override, we have a virtual class where it actually does something, but it CAN be overriden. **So yes, if a subclass wanted to override another method it either needs to be an abstract method or a virtual one**.
 - We can think of virtual as giving a class a default function, and whatever class inherits from it can use the default function OR override it with their own. Remember, the meaning of virtual is "almost or nearly as described, but not completely or according to strict definition.". Essentially this default function is almost or nearly as described, BUT it's not perfect, you can change it if you want when you extend this class.
 - We can think of abstract as giving a template to the base class in terms of what methods it need so we can dictate what should be in a derived class. Anything that is abstract means it's sort of an idea, it's our job to flush it out.
-
 
 ### Interaces
 - So with classes, we can create subclasses to inherit from a class, and that we don't have to repeat code. Now what happens if we have several subclasses all extending the same base class, and we want some to share some methods/properties and others to not. This is where interfaces come in, these are completely abstract classes that are sort of modular. Subclasses can inhereit several interfaces, or no interfaces, it's up to you. This gives us flexbility to how we define base classes and how we extend base classes in subclasses.
