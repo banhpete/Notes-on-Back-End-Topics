@@ -611,11 +611,41 @@ These are just some random notes on concepts that came up while I was learning C
 ### Learning with Mosh
 #### Primitive Type
 - A basic type provided by a programming language as a basic building block. Take char in C#, this helps build a string.
+- int, char, float, bool - builds other data types such as classes, structures, arrays, strings.
 #### Float, Decimal and Double
 - These three are considered real numbers. A number that we write with a decimal is automatically considered a docuble. To make it a float we have to include the letter f and to make it a decimal we have to include the letter m.
 #### var
 - C# has the keyword var which basically allows us to create a variable that detects the data type of whatever is assigned to it.
-
+#### Type conversion
+- Implicity conversion occurs when you change a small value (in terms of memory) to a larger value.
+- Explicit is the opposite, there will be memory lost, this is why the complier won't let you do this unless you force it.
+- You can forcefully implicit by casting it.
+- YOu cannot explicit cast a string to int, they are not compatible. You have to use the Convert class which can be used to convert dfifferent tpyes into different types. 
+- The Convert methods will cause an exception if you try to do an explicit conversion.
+#### Classes
+ - Static Modifier - We can add this to a class method to make that method accessible through the class and not an instance/object of the class.
+   - Using the static modifier helps code from being repeated when it doesn't have it have to or make it exist in one place in memory. If we have multiple objects and they all have the same method and it doesn't even interact with that object, what's the point? Just leave it in the class. For example, the WriteLine method from the console class is static, hence why we can access it from 'Console'.
+#### Struct
+ - There are many small little differences between Structs and classes but they are very similar.
+ - Small light weight objects
+#### Arrays
+ - You need to use 'new' when creating an array so we an allocate memory to it, ultimately it is an object and objects need to be allocated memory. It's an object of the array class.
+ - When you create an array, all values in an array are initialized to a default value. Think that when you create an array the space needs to be set right away, so it needs to have a default value.
+#### Strings
+ - Strings are immutable, all strings methods return a new one similiar to JS.
+ - C# has Verbatim strings. Essentially if you prefix the string with '@' you don't need to escape certain characters. This works great for strings that represents paths.
+#### Enums
+ - A set of value and pairs. 
+ - Enums are types, and types you have to define at the name space level. What else is a type? A Class! And where do we define? The namespace level!
+ - Remember, because it's a type, we can actually use Enums to cast a type to another. So an Enum exists with keys that are connected to values. Therefore we can convert integers to the keys of an Enum.
+ - Console.WriteLine always converts whatever it's given into a string, if it can't it will raise an exception.
+ - What if we have a string, can we convert it into an enum?
+#### Types
+ - All types are classes or structs.
+ - When you create a structure, memory allocation is done automatically. Also immediately removed when out of scope. These are called value types, keep in mind this is why we don't have to allocate memory for primitive type such as int, floats, chars, etc. 
+ - Classes need you to manually say you want to allocate memory. these are called reference Type. It's interesting, this must be because the variable is actually just an address pointing somewhere.
+ - The garbage collector will remove a class if it's no longer used.
+ 
 
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
