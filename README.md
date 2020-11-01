@@ -645,7 +645,43 @@ These are just some random notes on concepts that came up while I was learning C
  - When you create a structure, memory allocation is done automatically. Also immediately removed when out of scope. These are called value types, keep in mind this is why we don't have to allocate memory for primitive type such as int, floats, chars, etc. 
  - Classes need you to manually say you want to allocate memory. these are called reference Type. It's interesting, this must be because the variable is actually just an address pointing somewhere.
  - The garbage collector will remove a class if it's no longer used.
- 
+#### Iteration
+- forEach is used for any enumerables. Basically the equivalent of the for in loop in JS.
+#### Arrays
+ - C# can actually can create a 2D array. In JS we have to create an array and and add arrays to that.
+#### List
+ - A list is similiar to an array, except it has a dynamic size
+ - We use the list type to create a new list, it is a generic type so when creating a new list it's required for us to pass in a type.
+#### Timespan
+ - timeSpans can be created using dateTime objects.
+#### StringBuilder
+ - Anytime we're dealing with a lot of string manipulation we should use the stringbuilder instead.
+ - Not optimized with searching however.
+#### Constructor
+ - Constructor Overloading makes making a new class easier cause sometimes we don't have all the data we need.
+ - Having multiple constructors can be annoying however, what if we wanted to have a default constructr? One constructor other constructors can run? We can! If we extend the constructor with :this() we're basically saying extend/inherit this constructor with this other instructor.
+ - Having a default constructor is a good idea, especially if you have a member that is a list.
+ - Instead of overloading constructors (which can get messy really quick) we can use object initializer instead. Basically we create the person and then we write between curly backets the fields we want to be initialzied with some value.
+#### Methods
+ - The params keyword, or params modifier, can be used to specify that a method parameter can take in a variable number of arguments.  The params must be used on a single a single-dimensional array. This is like using the arguments in a function in JavaScript. In C#, if I have a function that I don't know how much arguments I'm going to get, I want the person to send an array. To make things easier I use the params modifier and so technically, when calling the function, you don't have to send in an array, just comma-separated list of arguments of the type of the array element.
+ - When overloading, sometimes it's a good idea to just have the other overloading functions just call the other function, it's just that arguments are modified to accept the other function.
+#### Fields
+ - A field can be read-only, which means it can only be initialized once, either in the constructor OR with it is declared.
+#### Access Modifier
+ - A way to control access to a class and/or its members.
+ - A way for us introduce encapsulation in our code (essentially hiding information in our classes). There are certain details in a class that we don't need other classes to know.
+ - Sometimes you may ask yourself why we have fields that are private, and then we have two methods that allows us to set and expose. You'd be right in the sense that it doesn't entirely make sense BUT that is the nature of OOP, these fields are a part of what's internal in the class and therefore should be private.
+#### Properties
+ - A property can have a set method that is private meaning it can only be set once and that is in the constructor. This is a great way to have users define the property and then never let them touch it again. I suppose it's very similiar to setting a field to readOnly expect it's only used for properties.
+#### Dictionary
+ - A dictionary is the object of C# where if you want to look up date by a key instead of an index, you would use this data structore. 
+ - This uses a hash table.
+ - It's a generic type just like a list, BUT it requires two types because remember, you're defining the type of the key and pair.
+#### Indexers
+ - Say you have a class, but you want to make it resemble a dictionary (which is comparable to a JS object, where you give it a key and it will find you a value), this is when you use indexers in a class.
+ - Essentially, an indexer is just a property but with different semenatics 
+ - Why use an indexer? Besides the semantics, it looks we can sort of dynamically set values and get values.
+ - Basically, we can make a class into a dictionary, but also have it include more properties/fields. The HttpCookie is one such example.
 
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
