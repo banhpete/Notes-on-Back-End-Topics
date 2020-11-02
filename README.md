@@ -682,6 +682,9 @@ These are just some random notes on concepts that came up while I was learning C
  - Essentially, an indexer is just a property but with different semenatics 
  - Why use an indexer? Besides the semantics, it looks we can sort of dynamically set values and get values.
  - Basically, we can make a class into a dictionary, but also have it include more properties/fields. The HttpCookie is one such example.
+#### Composition vs Inheritance
+- Inheritance is about extending classes. Composition is about containing classes.
+- Composition allows for classes being less coupled.
 
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
