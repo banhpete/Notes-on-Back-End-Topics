@@ -788,3 +788,10 @@ CAP stands for Consistency, Availability, and Partition tolerance, essentially i
 ### WebSockets Libraries
 - To work with WebSocket, there is the WebSocket API which is compatible with most browsers, however as like most web apis that come in the browser, there are open source libraries to add additional features and handle some of the smaller things of the api. Socket.io is one of them which helps us manage a websocket connection on the client and server.
 
+## SSH
+ - SSH stands for Secure Shell and it is a network protocol which allows us to remotely access a computer by creating a secure SSH connection. When you establish the connection a shell session will be started (hence secure SHELL).
+ - For an SSH connection to be estalbished, you must have a SSH client and a SSH daemon, existing on the client side and server side respectively.
+ - You can access a SSH client through your terminal/shell. Most will come with it. To test if you have one, you can just type in SSH. For windows, there was a time where you had to download something called Putty, but a SSH client is now available through powershell and WSL2.
+ - Using SSH we can connect to a computer remotely two ways, we can attempt to connect to a computer using the 'ssh' command, and then providing immediately after '{username}@{domain}' where the domain can be an ip address. The SSH server will then ask for a password before the connection can be established
+ - Instead of using a password we can also provide a SSH key to the server. What we need to do first is generate a pair of public-private key using the ssh-keygen command. The public key must be uploaded to the SSH server.
+
