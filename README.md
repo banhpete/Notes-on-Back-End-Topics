@@ -684,7 +684,39 @@ These are just some random notes on concepts that came up while I was learning C
  - Basically, we can make a class into a dictionary, but also have it include more properties/fields. The HttpCookie is one such example.
 #### Composition vs Inheritance
 - Inheritance is about extending classes. Composition is about containing classes.
-- Composition allows for classes being less coupled.
+- Anytime you have either of the two, we have classes that are being coupled together.
+- **So when would you use one over the other?** 
+  - They both prvoide code reuse HOWEVER when you're using inheritance your code becomes more coupled.
+  - Composition is more flexible and loosely coupled.
+  - Inheritance allows for polymorphic behaviour however.
+  - You have to be careful with inheritance it could lead to large hierarchies (Think about the animal class, and the humans and fish, those two classes cannot inherit directly from the animal class)
+#### Access Modifiers
+ - Access modifiers are used to set level/visibility for classes, fields, methods, and properties. 
+ - Public and Private are the opposites, and their names clearly indicate how they modifiy the fields, calsses, etc.
+ - protected means that the class, field, method, etc. is accessible only by the class and derived classses
+ - internal (which basically is only used on classes) will make a class, field, or method accessible within an assembly. Now an assembly is compiled output of out code, generally it will be a .dll file (dynamically linked library) also known as a class library.
+#### Object Conversion
+ - The conversion of an object is known as upcasting and downcasting.
+ - When thinking about object conversion, think of the object hierarchy with the parent class always on the top, and derived classes being on the bottom
+ - Why do we ever want object conversion? Well consider having a function where you want it to accept some class and any class derived from it, all you have to do is use the parent class as the parameter/argument. So when you pass in a object which is an instance of the class or dervied from it, that object will be 'upcasted' meaning it be casted into that parent class.
+   - At that point it will only allow you to access members that are specific to that parent class.
+ - Downcasting is when you make class convert into a base class. It seems to only be used when it was initially a upcasted class and it has to be explicitly done.
+   - To explicitly downcast we can do it two ways:
+     - Cast like we would using ()
+     - Write {obj} as {class}
+#### Box/Unboxing
+ - When considering box/unboxing, remember that we have two types of data, value types and reference types. Value types are kept on the stack while reference types are kept on the heap which means the values types will disappear once it's out of scope while the garbage collector will take care of reference types.
+ - Boxing is when you convert a value type instance to an object reference, and there is a performance hit if we do this. This doesn't happen often but we should be cautious, this is why people don't really use arraylist (one of the reasons), basically an arraylist is always expecting an object, so if you pass an int in it will be boxed.
+ - Unboxing is the opposite of boxing where you convert a object refernece to a value type instance. 
+#### Abstract/Virtual
+ - When you make a member in a class abstract the class also has to be abstract. This is because we're saying that whatever class inherits this class to override this abstract member, which further implies that this class will only be inherited, it will never be used to create its own instance.
+ - Never include implementation for an abstact member
+ - You use abstract when you want other developers to follow the design of your class
+#### Sealed
+ - This is to prevent a class being a base class
+ - Hardly ever used, but it does provide some run-time optimization;
+ 
+
 
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
