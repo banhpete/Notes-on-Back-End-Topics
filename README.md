@@ -18,6 +18,8 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [C#](#c#)
  - [NoSQL vs SQL](#nosql-vs-sql)
  - [WebSockets](#websockets)
+ - [SSH](#ssh)
+ - [Testing (FE & BE)](#testing)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -715,6 +717,12 @@ These are just some random notes on concepts that came up while I was learning C
 #### Sealed
  - This is to prevent a class being a base class
  - Hardly ever used, but it does provide some run-time optimization;
+#### Unit Testing in C#
+ - To create a unit test in C# we have to add a new project to the solution and then pick one of the testing frameworks
+   - There are multiple frameworks, MSTest, xUnit Test, NUnit Test
+ - The test needs to reference your project
+ - So in a test project you will have cs files that have a class for testing, and each method for the class does the testing.
+ - Using interfaces seem to be crucial for proper unit testing, especially if for a specific module it relays on another module. When test this unit, we only want to test this unit, this is one of the reasons why we use interfaces, so we can create a mock class based on the interface. If you think about it, it makes sense that we use interfaces rather an actual class itself, how do we know that class is working properly?
  
 
 
@@ -826,4 +834,13 @@ CAP stands for Consistency, Availability, and Partition tolerance, essentially i
  - You can access a SSH client through your terminal/shell. Most will come with it. To test if you have one, you can just type in SSH. For windows, there was a time where you had to download something called Putty, but a SSH client is now available through powershell and WSL2.
  - Using SSH we can connect to a computer remotely two ways, we can attempt to connect to a computer using the 'ssh' command, and then providing immediately after '{username}@{domain}' where the domain can be an ip address. The SSH server will then ask for a password before the connection can be established
  - Instead of using a password we can also provide a SSH key to the server. What we need to do first is generate a pair of public-private key using the ssh-keygen command. The public key must be uploaded to the SSH server.
+ 
+ ## Testing (FE & BE)
+ - Testing can generally be split into four levels, Unit Testing, Integration Testing, System Testing (End to End) and acceptance testing.
+ - **Unit Testing** is when we check individual modules of the source code are working properly. A great example of unit testing is when we test components in react, especially the a low level component such as a button or a text input. When a component is given some sort of state/prop does it render the way we need it to?
+ - **Integration Testing** is when we test "units" together as a group, and make sure they are communicating with each other the way we want it too. From a react perspective, integration testing can be described as when you have a component that holds other components, we need to test that this parent component is communicating with the children component in the way we want it too. Think of a form component, it has input components, and button components, this form components needs to indicate when an error has occured and that needs to properly flow down to the button and inputs so that it can properly render an error.
+ - **System Testing** is also sometimes considered blackbox testing, but it's essentially the fully integrated application. This is usually done by those who didn't have a role in the development and so the test are a high level. This is to make sure the application meets the requirements we set out.
+ - **Acceptance Testing** is essentially a customer sign off. It seems to be done mainly by the customer, or externally.
+ - These levels of testing can be split into two categories, black box testing and white box testing. Black box testing is essentially a test where the internal structure/code of the test object is not considered, something goes in the black box, and this should come out, we don't care how it's done. White box testing is when we test based on the internal structure/code of the test object, this how usually integration and unit tests are written.
+
 
