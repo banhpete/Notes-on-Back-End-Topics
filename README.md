@@ -856,10 +856,12 @@ CAP stands for Consistency, Availability, and Partition tolerance, essentially i
 - One thing to note is that a DBMS has a query cache where it stores previous queries, this is why it's important to try to use the same query over and over if you can. This query cache is case and space sensitive.
  
 ## Scaling Applications
+- A good youtube series to follow for scaling applications can be found [here](https://www.youtube.com/watch?v=RCyR5_9djik&list=PLrwNNiB6YOA3xc1dfQpHuaU8HsKxkEgiQ&index=1).
 - When scaling an application there are three dimensions we should consider:
-  - Microservices: 
-  - Cloning: Running multiple instances of the application on different machines. 
+  - Microservices: Break monolethic applications into several services.
+  - Cloning: Running multiple instances of the application.
   - Scale by sharding databases: Essentially large tables are split into different databases (see note above).
+- When it comes to scaling NodeJS applications, we can create worker threads (we have multiple threads in a process), or we can create child processes (nodejs has a built in library called clusters) to manage the child processes. PM2 is another solution to handle NodeJS applications but can run those processes in the background as a daemon process.
 
 
 
