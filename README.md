@@ -20,6 +20,8 @@ My notes on back-end topics. This is by no mean a comprehsive coverage of all th
  - [WebSockets](#websockets)
  - [SSH](#ssh)
  - [Testing (FE & BE)](#testing)
+ - [Best Practices/Techniques Working with Databases](#best-practices/techniques-working-with-databases)
+ - [Scaling Node.JS](#scaling-nodejs)
 
 ## HTTP Request
 To talk about the back end technologies, it's important to make a note of how HTTP Requests work first. HTTP stands for Hypertext Transfer Protocol, it's the network protocol that powers the communications across the Web. Essentially, anytime a user accesses a website, HTTP is used to deliver the goods from the server back to the browser. **So what are the steps?**
@@ -842,5 +844,22 @@ CAP stands for Consistency, Availability, and Partition tolerance, essentially i
  - **System Testing** is also sometimes considered blackbox testing, but it's essentially the fully integrated application. This is usually done by those who didn't have a role in the development and so the test are a high level. This is to make sure the application meets the requirements we set out.
  - **Acceptance Testing** is essentially a customer sign off. It seems to be done mainly by the customer, or externally.
  - These levels of testing can be split into two categories, black box testing and white box testing. Black box testing is essentially a test where the internal structure/code of the test object is not considered, something goes in the black box, and this should come out, we don't care how it's done. White box testing is when we test based on the internal structure/code of the test object, this how usually integration and unit tests are written.
+ 
+## Best Practices/Techniques Working with Databases
+- If we expect to work with a lot of "JOIN" in Mysql queries we could potentially denormalize the data in the database. Essentially what we would be doing when denormalizing is to have repeating/redundant data.
+  - Think of it this way, say we have a table for courses, and a table for teachers, the courses table references which teacher teaches it by the teacher id. Now to figure which teacher actually teaches the course we need to do a JOIN. This isn't much of an issue itself UNLESS, we begin to work with larger tables, REMEMBER a JOIN can be expensive (consider the process, essentially we have to two tables and we have to look through both tables to find what matches and connect them). If this is the case one technique we can do is to denormalize the data and just have the courses table reference the teachers name as well.
+  - Despite less JOINS, there are some downsides, such as the fact that we have to be concerned with the fact that the teacher name is now in two table, if we do an update we must remember to update other tables as well, otherwise we can have a serious database issue. Basically updates/inserts are more expensive, and there may be a chance where data can be inconsistent.
+- When working with databaes, one way to improve effeciency is to use indexes, especially with columns. This gives us a way to search through a column faster, this is why it's generally easier to search by an ID in a database rather than a name, the time complexity would be O(log(n)). So we could also make an index for the name column such that a dbms will know it can sort through the column by it's name (or some other way that can be effecient). Indexes should be done carefully however, keep in mind that when you index a column you essentially adding more data for the database to keep track of, hence why we don't just index everything. It also will make an update or insert a little more expensive because it needs to consider the index.
+- Another approach may be to partition databases, essentially we will have more tables, and they will contain the same columns just a specific range of rows, this way we're working with a smaller subset of the data. Partition is great and all but the issue here is how do we know which table to use when we are looking for a specific row?
+- To take the idea of working with smaller subsets even further, consider database sharding, where instead of having multiple tables, where we have multiple databases. Of course the problem that arises from this is how do we know which database to use when we are looking for a certain row?
+- For indexing, partitioning and database sharding see this [link](https://www.youtube.com/watch?v=wj7KEMEkMUE&t=674s)
+- One thing to note is that a DBMS has a query cache where it stores previous queries, this is why it's important to try to use the same query over and over if you can. This query cache is case and space sensitive.
+ 
+## Scaling Applications
+- When scaling an application there are three dimensions we should consider:
+  - Microservices: 
+  - Cloning: Running multiple instances of the application on different machines. 
+  - Scale by sharding databases: Essentially large tables are split into different databases (see note above).
+
 
 
