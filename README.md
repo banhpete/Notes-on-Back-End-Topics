@@ -725,6 +725,13 @@ These are just some random notes on concepts that came up while I was learning C
  - The test needs to reference your project
  - So in a test project you will have cs files that have a class for testing, and each method for the class does the testing.
  - Using interfaces seem to be crucial for proper unit testing, especially if for a specific module it relays on another module. When test this unit, we only want to test this unit, this is one of the reasons why we use interfaces, so we can create a mock class based on the interface. If you think about it, it makes sense that we use interfaces rather an actual class itself, how do we know that class is working properly?
+#### Abstract Class vs Interface
+ - So these are both used by a class in the sense that they can be inherited by a class, however, an abstract class will provide functionality while an interface is more about defining functionality.
+ - One way to think about it is that an interface is a contract for a class, and the abstract class is like a starting point for a class.
+ - The expansion of an interface is tricky, you won't be able to add another method easily, because if you do, anything else inheiriting this interface will need a method added.
+#### Interfaces
+ - Interfaces are great for unit testing because if you think about it, interfaces enable a plug and play behaviour. Therefore if we are testing some class, and it is dependent on another class, instead of having field for that specific class, we have a field based on the interface of that class. That way, when we do a unit test, we can create a mock class that uses/returns what we want it to.
+ - Interaces are also great for what we call extensibility. This is software engineering and design principle that provides future growth 
  
 
 
