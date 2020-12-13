@@ -708,10 +708,12 @@ These are just some random notes on concepts that came up while I was learning C
    - To explicitly downcast we can do it two ways:
      - Cast like we would using ()
      - Write {obj} as {class}
+ - When downcasting/upcasting an object to another one, both objects will reference the same object, it's just that they will have a different view of the object.
 #### Box/Unboxing
  - When considering box/unboxing, remember that we have two types of data, value types and reference types. Value types are kept on the stack while reference types are kept on the heap which means the values types will disappear once it's out of scope while the garbage collector will take care of reference types.
  - Boxing is when you convert a value type instance to an object reference, and there is a performance hit if we do this. This doesn't happen often but we should be cautious, this is why people don't really use arraylist (one of the reasons), basically an arraylist is always expecting an object, so if you pass an int in it will be boxed.
  - Unboxing is the opposite of boxing where you convert a object refernece to a value type instance. 
+ - This happens a lot with the arraylist because you're adding an object to the list, and that object will always conert a value to an object(boxing) if it has to. This is why we generally don't want to use arraylist, it's not efficient, especially if we don't have to.
 #### Abstract/Virtual
  - When you make a member in a class abstract the class also has to be abstract. This is because we're saying that whatever class inherits this class to override this abstract member, which further implies that this class will only be inherited, it will never be used to create its own instance.
  - Never include implementation for an abstact member
