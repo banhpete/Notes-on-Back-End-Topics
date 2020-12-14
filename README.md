@@ -635,6 +635,8 @@ These are just some random notes on concepts that came up while I was learning C
 #### Arrays
  - You need to use 'new' when creating an array so we an allocate memory to it, ultimately it is an object and objects need to be allocated memory. It's an object of the array class.
  - When you create an array, all values in an array are initialized to a default value. Think that when you create an array the space needs to be set right away, so it needs to have a default value.
+#### For loops
+ - Remember that in C# we have two types of for loops. The regular for loop where we need to create an integer to iterate through the array, and then we have foreach to iterate through each item without using an index.
 #### Strings
  - Strings are immutable, all strings methods return a new one similiar to JS.
  - C# has Verbatim strings. Essentially if you prefix the string with '@' you don't need to escape certain characters. This works great for strings that represents paths.
@@ -677,6 +679,7 @@ These are just some random notes on concepts that came up while I was learning C
  - Sometimes you may ask yourself why we have fields that are private, and then we have two methods that allows us to set and expose. You'd be right in the sense that it doesn't entirely make sense BUT that is the nature of OOP, these fields are a part of what's internal in the class and therefore should be private.
 #### Properties
  - A property can have a set method that is private meaning it can only be set once and that is in the constructor. This is a great way to have users define the property and then never let them touch it again. I suppose it's very similiar to setting a field to readOnly expect it's only used for properties.
+ - It's nice to use properties becaues it allows us to easier control how we want to expose our data to outside objects.
 #### Dictionary
  - A dictionary is the object of C# where if you want to look up date by a key instead of an index, you would use this data structore. 
  - This uses a hash table.
@@ -718,6 +721,7 @@ These are just some random notes on concepts that came up while I was learning C
  - When you make a member in a class abstract the class also has to be abstract. This is because we're saying that whatever class inherits this class to override this abstract member, which further implies that this class will only be inherited, it will never be used to create its own instance.
  - Never include implementation for an abstact member
  - You use abstract when you want other developers to follow the design of your class
+ - Remember, if you want to allow a method to be overridden in an inheriting class, it needs to be given the virtual modifier
 #### Sealed
  - This is to prevent a class being a base class
  - Hardly ever used, but it does provide some run-time optimization;
@@ -733,9 +737,7 @@ These are just some random notes on concepts that came up while I was learning C
  - The expansion of an interface is tricky, you won't be able to add another method easily, because if you do, anything else inheiriting this interface will need a method added.
 #### Interfaces
  - Interfaces are great for unit testing because if you think about it, interfaces enable a plug and play behaviour. Therefore if we are testing some class, and it is dependent on another class, instead of having field for that specific class, we have a field based on the interface of that class. That way, when we do a unit test, we can create a mock class that uses/returns what we want it to.
- - Interaces are also great for what we call extensibility. This is software engineering and design principle that provides future growth 
- 
-
+ - Interaces are also great for what we call extensibility. This is software engineering and design principle that provides future growth. It allows us to introduce a new class to replace an old class easier if we ever want to try something in our application.
 
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
