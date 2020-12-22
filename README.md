@@ -738,10 +738,16 @@ These are just some random notes on concepts that came up while I was learning C
 #### Interfaces
  - Interfaces are great for unit testing because if you think about it, interfaces enable a plug and play behaviour. Therefore if we are testing some class, and it is dependent on another class, instead of having field for that specific class, we have a field based on the interface of that class. That way, when we do a unit test, we can create a mock class that uses/returns what we want it to.
  - Interaces are also great for what we call extensibility. This is software engineering and design principle that provides future growth. It allows us to introduce a new class to replace an old class easier if we ever want to try something in our application.
+#### Generics
+ - Generics are used in C# to introduce the concept of type parameters to .NET. Think of it this way, generics give us a way to make the type a variable in a method or class, it's a way for us to add some flexibility in C#.
+ - When a method has a generic, it is indicated by a <T> (doesn't have to be T) next to the name, this is basically a placeholder for a type. Now this does get a little tricky as we don't know anything about this type, how could we write logic for it? For example, we don't know if it can actually be compared, so can we write logic for comparison? So by default we can't BUT we can apply a constraint, so for exmaple we can say "T : IComparable" which means that whatever generic type we get, it needs to be comparable. There are constraints that can be applied to make the generic type only accept a certain class as well.
+ - Now classes can also be given a generic, basically it would be a class where it is based on a certain type. A really popular one is the generic List, basically we're saying make a list of this generic type that I give you.
+   - As a side note remember some common types are arrays, arraylists, and lists. Arrays are fixed, and has a specific type but is not a generics list. ArrayLists are not fixed, and everything is considered an object (which is very inefficient because everything has to be boxed). Lists are a generic collection and is not a fixed size.]
+#### Delegates
+ - 
 
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
-#### 
 
 ### Classes
 - Similar to JS, classes are essentialy templates that an object will be based on, that is, when you create an object, it inherits variables and methods from a class. Being an OOP, using classes and objects is extremely important to help provide structure to program and prevent code from beign repeated (DRY).
