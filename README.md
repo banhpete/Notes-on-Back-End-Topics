@@ -744,8 +744,10 @@ These are just some random notes on concepts that came up while I was learning C
  - Now classes can also be given a generic, basically it would be a class where it is based on a certain type. A really popular one is the generic List, basically we're saying make a list of this generic type that I give you.
    - As a side note remember some common types are arrays, arraylists, and lists. Arrays are fixed, and has a specific type but is not a generics list. ArrayLists are not fixed, and everything is considered an object (which is very inefficient because everything has to be boxed). Lists are a generic collection and is not a fixed size.]
 #### Delegates
- - 
-
+ - Delegates is a type that represents a reference to a method or methods with a particular parameter list/return type. The idea is that a method can accept a delegate so that this method, in some senese, can be customized by a user with their own functions; it essentially gives you the opportunity to run your own methods in the method of another class.
+ - A method can accept a custom delegate or built in delegates, Action<T> (This would only accept functions that are void and accept a type T as the parameter) and Func<T1, T2> (This will only accept functions with a type T1 parmeter and a reutrn value with type T2). 
+ _ Delegates are basically how we pass methods into other methods in C#.
+	
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
 
