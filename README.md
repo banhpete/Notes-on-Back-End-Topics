@@ -767,7 +767,12 @@ These are just some random notes on concepts that came up while I was learning C
    - A method to raise the event. This method should be protected, virtual, and void. Inside this method, we can invoke the delegate if there are subscribers.
  - The event is essentially an encapsulated delegate, this prevents someone from ivnoking the delegate outside of the object. This is why subscribing the event is the same as adding functions to the delegate.
 
-	
+#### Extension Methods
+ - Extension methods are methods that can be added to already existing types without createing a new derived type, or recompiling the old type.
+ - To create an extension method you need to create a new static class, and then in the static class you need a static method. The first parameter of this static method is what dictates what type this method will be added to. Preceeding the type, we need to include 'this' to indicate that this parameter is coming from the instance that is calling it.
+ - Extensions can only be used in places where the namespace is the same, if it's not, we'll have to use "using" and reference the namespace.
+ - Extension methods cannot override already existing methods, these will always take precedent. 
+ 
 	
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
