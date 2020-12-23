@@ -721,7 +721,7 @@ These are just some random notes on concepts that came up while I was learning C
  - When you make a member in a class abstract the class also has to be abstract. This is because we're saying that whatever class inherits this class to override this abstract member, which further implies that this class will only be inherited, it will never be used to create its own instance.
  - Never include implementation for an abstact member
  - You use abstract when you want other developers to follow the design of your class
- - Remember, if you want to allow a method to be overridden in an inheriting class, it needs to be given the virtual modifier
+ - Remember, if you want to allow a method to be overridden in an inheriting class, it needs to be given the virtual modifier. Virtual means to be almost or nearly as described, which means we can have a default logic for a method described as virtual and it only might be what we need, but if it's not, you can override it.
 #### Sealed
  - This is to prevent a class being a base class
  - Hardly ever used, but it does provide some run-time optimization;
@@ -742,11 +742,32 @@ These are just some random notes on concepts that came up while I was learning C
  - Generics are used in C# to introduce the concept of type parameters to .NET. Think of it this way, generics give us a way to make the type a variable in a method or class, it's a way for us to add some flexibility in C#.
  - When a method has a generic, it is indicated by a <T> (doesn't have to be T) next to the name, this is basically a placeholder for a type. Now this does get a little tricky as we don't know anything about this type, how could we write logic for it? For example, we don't know if it can actually be compared, so can we write logic for comparison? So by default we can't BUT we can apply a constraint, so for exmaple we can say "T : IComparable" which means that whatever generic type we get, it needs to be comparable. There are constraints that can be applied to make the generic type only accept a certain class as well.
  - Now classes can also be given a generic, basically it would be a class where it is based on a certain type. A really popular one is the generic List, basically we're saying make a list of this generic type that I give you.
-   - As a side note remember some common types are arrays, arraylists, and lists. Arrays are fixed, and has a specific type but is not a generics list. ArrayLists are not fixed, and everything is considered an object (which is very inefficient because everything has to be boxed). Lists are a generic collection and is not a fixed size.]
+  - As a side note remember some common types are arrays, arraylists, and lists. Arrays are fixed, and has a specific type but is not a generics list. ArrayLists are not fixed, and everything is considered an object (which is very inefficient because everything has to be boxed). Lists are a generic collection and is not a fixed size.
+
 #### Delegates
  - Delegates is a type that represents a reference to a method or methods with a particular parameter list/return type. The idea is that a method can accept a delegate so that this method, in some senese, can be customized by a user with their own functions; it essentially gives you the opportunity to run your own methods in the method of another class.
  - A method can accept a custom delegate or built in delegates, Action<T> (This would only accept functions that are void and accept a type T as the parameter) and Func<T1, T2> (This will only accept functions with a type T1 parmeter and a reutrn value with type T2). 
- _ Delegates are basically how we pass methods into other methods in C#.
+ - Delegates are basically how we pass methods into other methods in C#.
+ - One way to think of delegates are that they are pointers to functions. You don't need delegates in JavaScript because it's not strongly typed and we can easily assign a function to a variable. In C# we use a delegate to assign a function to a variable.
+ - Delegates are important in C# to implement call back method. Think about it, a method that calls a callback functions needs to accept a method/function as parameter therefore you need a delegate.
+ - There is also the delegate, Predicate<> which is meant to be a pointer to a function that returns a bool.
+ - Predicates are often used with lists methods as they require a method/function, such as List<>().FindAll();
+ - Remember to think of delegates as the type we use to pass functions around. We can use this delegates to create anonytmous functions which can also be written as a lamda function instead.
+ - When we declare a delegate in a class, we need to include the return type, the parameters, and it needs a name. A delegate then needs to be instaniated for us to have it point to other methods.
+  
+#### Lamda
+ - Lamdas are another way of expressing delegates, just in a more pleasing way.
+ 
+#### Events and Delegates
+ - Events are a way to encapsulate delegates such that we we wouldn't be able to call a delegate outside a class.
+ - When considering using events and delegates, remember that we need to have a publisher (emits events) and a subscriber (listens to events).
+ - In the publisher, for it to emit events, it needs three things:
+   - Needs a delegate. This tells subscribers how they're eventhandler should look like. The parameters for this delegate should be an object called source, and eventArgs.
+   - Define an event based on that delegate.
+   - A method to raise the event. This method should be protected, virtual, and void. Inside this method, we can invoke the delegate if there are subscribers.
+ - The event is essentially an encapsulated delegate, this prevents someone from ivnoking the delegate outside of the object. This is why subscribing the event is the same as adding functions to the delegate.
+
+	
 	
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
