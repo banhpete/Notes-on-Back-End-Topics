@@ -772,6 +772,10 @@ These are just some random notes on concepts that came up while I was learning C
  - To create an extension method you need to create a new static class, and then in the static class you need a static method. The first parameter of this static method is what dictates what type this method will be added to. Preceeding the type, we need to include 'this' to indicate that this parameter is coming from the instance that is calling it.
  - Extensions can only be used in places where the namespace is the same, if it's not, we'll have to use "using" and reference the namespace.
  - Extension methods cannot override already existing methods, these will always take precedent. 
+
+#### Nullable
+ - A nullable value type is a type which basically can take any type, be any of its underlying value plus the null value. We can represent a type as a nullable type with a question mark next to it.
+ - bool? flag = null
  
 	
 #### Overflowing
