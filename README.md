@@ -777,6 +777,18 @@ These are just some random notes on concepts that came up while I was learning C
  - A nullable value type is a type which basically can take any type, be any of its underlying value plus the null value. We can represent a type as a nullable type with a question mark next to it.
  - bool? flag = null
  
+#### Exceptions
+ - Exceptions are a type of class in .NET
+ - The exception in the try and catch block is the parent to all exceptions in .NET
+ - In a try and catch block, you can have multiple catches. You want to have the most specific exception in first catches.
+ - In a try and catch block, you can add a finally block to handle unmanaged resources (The finally block is generally used to remove/dispose these unmanaged resources since the garbage collector won't do it.).
+   - For example, streamreaders are unmanaged resources.
+ - You can create custom exception classes by inheriting from the exception class. You want to use custom exceptions as default exceptions don't provide enough information, these custom exceptions sort of act as a wrapper for the original exception, generally you'll see the original exception as the inner exception.
+ 
+#### Async/Await
+ - Similiar to JS, if we want a method to be async, we have to mark it as Async. Now in JS, when we mark a method as async, it will return a promise, in C#, we return a task instead.
+ - With that in mind, because a task is returned, the method needs to reflect that, and we need to indicate a Task is returned and we include the method's main variable as a generic.
+ - 
 	
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
