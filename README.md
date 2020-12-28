@@ -787,8 +787,9 @@ These are just some random notes on concepts that came up while I was learning C
  
 #### Async/Await
  - Similiar to JS, if we want a method to be async, we have to mark it as Async. Now in JS, when we mark a method as async, it will return a promise, in C#, we return a task instead.
+   - When a method is async we can then use await just like how we use it in JavaScript
  - With that in mind, because a task is returned, the method needs to reflect that, and we need to indicate a Task is returned and we include the method's main variable as a generic.
- - 
+ - When you hit the await in an async method you suspend the progression in the method and yield the control to the whoever called the method and you return a task.
 	
 #### Overflowing
 - Data can over overflow in C#, meaning a btw, once you add one while it's at 255, it will become 0 again. We can wrap this in a 'chcekd block' so that the program will throw an exception if overflow does happen. Not often used.
